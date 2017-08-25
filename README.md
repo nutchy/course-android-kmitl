@@ -8,9 +8,9 @@
 | ครั้งที่    | วันที่           | หัวข้อ               | ผู้สอน   |
 |:-------:|:-------------:|:------------------|:------------------:|
 |1|2017/08/11| [Introduction to Android and Activity](https://github.com/up1/course-android-kmitl/tree/master/slide/day01)      | `Somkiat` and Ladarat    |
-| 2      |2017/08/18     | Working with Fragment               | Ladarat and Prayoch
-| 3      |2017/08/25     | Intent and Filter| `Somkiat` and  Ladarat   |
-| 4      |2017/09/01     | Listview and Reclerview| `Somkiat`     |
+| 2      |2017/08/18     | [Activity and Layout](https://github.com/up1/course-android-kmitl/tree/master/slide/day02)             | Ladarat and Prayoch
+| 3      |2017/08/25     | [Building view and Model-View-Controller](https://github.com/up1/course-android-kmitl/tree/master/slide/day03)          | `Somkiat`   |
+| 4      |2017/09/01     | Intent and Filter<br>Listview and Reclerview| `Somkiat`     |
 | 5      |2017/09/08     | User Interface in Android| Ladarat(W) |
 | 6      |2017/09/15     | Build your own User Interface/Widget| `Somkiat`  and Ladarat   |
 | 7      |2017/09/22     | Managing the Lifecycle of Activity<br>State instance data<br>Persistent data| `Somkiat` and Ladarat(W) |
@@ -34,9 +34,9 @@
 ## การบ้าน
 | ครั้งที่    | หัวข้อ          | 
 |:-------:|:-------------|
-|1| TODO |
-|2| TODO |
-|3| TODO |
+|1| ส่ง create new app |
+|2| [Activity and Layout](https://github.com/up1/course-android-kmitl/wiki/Lab02) |
+|3| [My Dot app](https://github.com/up1/course-android-kmitl/wiki/Lab03) |
 |4| TODO |
 |5| TODO |
 |6| TODO |
