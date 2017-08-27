@@ -8,23 +8,24 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.util.ArrayList;
+
 import kmitl.lab03.chayanon58070021.simplemydot.model.Dot;
 
-/**
- * Created by nutchy on 8/25/2017 AD.
- */
 
 public class DotView extends View {
     private Paint paint;
-    private Dot dot;
+    private ArrayList<Dot> dot_list;
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(dot != null) {
-            paint.setColor(Color.RED);
-            canvas.drawCircle(dot.getCenterX(), dot.getCenterY(), dot.getRadius(), paint);}
-
-
+        if (dot_list != null) {
+            for(Dot d: dot_list){
+                paint.setColor(Color.rgb(d.getColorR(),d.getColorG(),d.getColorB()));
+                canvas.drawCircle(d.getCenterX(), d.getCenterY(), d.getRadius(), paint);
+            }
+        }
     }
 
     public DotView(Context context) {
@@ -42,12 +43,9 @@ public class DotView extends View {
         paint = new Paint();
     }
 
-    public DotView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        paint = new Paint();
-    }
 
-    public void setDot(Dot dot) {
-        this.dot = dot;
+
+    public void setDot(ArrayList<Dot> dot_list) {
+        this.dot_list = dot_list;
     }
 }

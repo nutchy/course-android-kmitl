@@ -9,7 +9,7 @@
     <kmitl.lab03.chayanon58070021.simplemydot.view.DotView
         android:id="@+id/dotview"
         android:layout_width="368dp"
-        android:layout_height="0dp"
+        android:layout_height="431dp"
         android:layout_weight="10"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/button"
@@ -18,19 +18,34 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <Button
         android:id="@+id/button"
         android:onClick="onRandomDot"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:text="@string/ramdom_dot"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.92" />
+        app:layout_constraintRight_toLeftOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/dotview"
+        app:layout_constraintVertical_bias="0.42000002" />
+
+    <Button
+
+        android:id="@+id/button2"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:onClick="onClearDots"
+        android:text="@string/clear_dots"
+        app:layout_constraintBottom_toBottomOf="@+id/button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/button"
+        app:layout_constraintVertical_bias="0.111"
+        app:layout_constraintTop_toTopOf="@+id/button" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SimpleMyDot</string>
     <string name="ramdom_dot">RAMDOM DOT</string>
+    <string name="clear_dots">Clear Dots</string>
 </resources>

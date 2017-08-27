@@ -1,20 +1,25 @@
 package kmitl.lab03.chayanon58070021.simplemydot.model;
 
+import android.graphics.Color;
+import android.graphics.Paint;
+
 /**
  * Created by nutchy on 8/25/2017 AD.
  */
 
 public class Dot {
+    private int colorR, colorG, colorB;
     private int centerX;
     private int centerY;
     private int radius;
 
-    public interface OnDotChangedListerner{
+    private OnDotChangedListerner listerner;
+
+    public interface OnDotChangedListerner {
         void onDotChanged(Dot dot);
     }
 
-    private OnDotChangedListerner listerner;
-    public void setListerner(OnDotChangedListerner listerner){
+    public void setListerner(OnDotChangedListerner listerner) {
         this.listerner = listerner;
     }
 
@@ -45,6 +50,7 @@ public class Dot {
         this.centerY = centerY;
         this.radius = radius;
         this.listerner = listerner;
+        this.listerner.onDotChanged(this);
 
 
     }
@@ -61,5 +67,34 @@ public class Dot {
 
     }
 
+    public void setOrigin(int centerX, int centerY) {
+        this.centerX = centerX;
+        this.centerY = centerY;
+        this.listerner.onDotChanged(this); // callback
 
+    }
+
+    public int getColorR() {
+        return colorR;
+    }
+
+    public void setColorR(int colorR) {
+        this.colorR = colorR;
+    }
+
+    public int getColorG() {
+        return colorG;
+    }
+
+    public void setColorG(int colorG) {
+        this.colorG = colorG;
+    }
+
+    public int getColorB() {
+        return colorB;
+    }
+
+    public void setColorB(int colorB) {
+        this.colorB = colorB;
+    }
 }

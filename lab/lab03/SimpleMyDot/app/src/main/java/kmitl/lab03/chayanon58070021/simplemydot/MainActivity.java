@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import kmitl.lab03.chayanon58070021.simplemydot.model.Dot;
@@ -15,15 +16,16 @@ public class MainActivity extends AppCompatActivity implements Dot.OnDotChangedL
     private Dot dot;
     private DotView dotView;
 
+    private ArrayList<Dot> dot_list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //Set Default value
-        dot = new Dot(0,0,50);
-        dot.setListerner(this);
 
+        dot_list = new ArrayList<>();
         dotView = (DotView) findViewById(R.id.dotview);
 
     }
@@ -32,18 +34,27 @@ public class MainActivity extends AppCompatActivity implements Dot.OnDotChangedL
         Random rand = new Random();
         int centerX = rand.nextInt(this.dotView.getWidth());
         int centerY = rand.nextInt(this.dotView.getHeight());
-        this.dot.setCenterY(centerY);
-        this.dot.setCenterX(centerX);
+        Dot dot = new Dot(centerX, centerY, rand.nextInt(100), this);
+        dot.setColorR(rand.nextInt(255));
+        dot.setColorG(rand.nextInt(255));
+        dot.setColorB(rand.nextInt(255));
+//        this.dot.setOrigin(centerX, centerY);
+        dot_list.add(dot);
 //         new Dot(centerX, centerY,50,this); // when instructor complied will Call back to onDotChanged
 
 
+    }
 
+    public void onClearDots(View view){
+        dot_list.clear();
+        dotView.invalidate();
     }
 
     @Override
     public void onDotChanged(Dot dot) {
         //Draw dot model to view
-        dotView.setDot(dot);
+        dotView.setDot(dot_list);
+
         dotView.invalidate(); // will call onCreate() Again
     }
 }
