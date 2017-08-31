@@ -2,6 +2,7 @@ package kmitl.lab03.chayanon58070021.simplemydot;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements Dot.OnDotChangedL
         Random rand = new Random();
         int centerX = rand.nextInt(this.dotView.getWidth());
         int centerY = rand.nextInt(this.dotView.getHeight());
-        Dot dot = new Dot(centerX, centerY, rand.nextInt(100), this);
+        Dot dot = new Dot(centerX, centerY, 60, this);
         dot.setColorR(rand.nextInt(255));
         dot.setColorG(rand.nextInt(255));
         dot.setColorB(rand.nextInt(255));
@@ -56,5 +57,24 @@ public class MainActivity extends AppCompatActivity implements Dot.OnDotChangedL
         dotView.setDot(dot_list);
 
         dotView.invalidate(); // will call onCreate() Again
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN){
+            int x = (int) event.getX();
+            int y = (int) event.getY()-200;
+            Random rand = new Random();
+
+            Dot dot = new Dot(x, y, 80, this);
+            dot.setColorR(rand.nextInt(255));
+            dot.setColorG(rand.nextInt(255));
+            dot.setColorB(rand.nextInt(255));
+            dot_list.add(dot);
+
+
+
+        }
+        return super.onTouchEvent(event);
     }
 }
