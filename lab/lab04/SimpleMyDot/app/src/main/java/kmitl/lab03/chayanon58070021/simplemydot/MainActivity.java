@@ -14,13 +14,14 @@ import java.util.Random;
 import kmitl.lab03.chayanon58070021.simplemydot.model.Dot;
 import kmitl.lab03.chayanon58070021.simplemydot.model.DotParcelable;
 import kmitl.lab03.chayanon58070021.simplemydot.model.DotSerializable;
+import kmitl.lab03.chayanon58070021.simplemydot.model.Dots;
 import kmitl.lab03.chayanon58070021.simplemydot.view.DotView;
 
-public class MainActivity extends AppCompatActivity implements Dot.OnDotChangedListerner {
+public class MainActivity extends AppCompatActivity implements Dots.OnDotsChangedListener {
 
     private Dot dot;
     private DotView dotView;
-
+    private Dots dots;
     private ArrayList<Dot> dot_list;
 
     @Override
@@ -49,37 +50,28 @@ public class MainActivity extends AppCompatActivity implements Dot.OnDotChangedL
         });
 
         //Set Default value
-
-        dot_list = new ArrayList<>();
+        dots = new Dots();
+        dots.setListerner(this);
         dotView = (DotView) findViewById(R.id.dotview);
-
     }
 
     public void onRandomDot(View view) {
         Random rand = new Random();
         int centerX = rand.nextInt(this.dotView.getWidth());
         int centerY = rand.nextInt(this.dotView.getHeight());
-        Dot dot = new Dot(centerX, centerY, 60, this);
-        dot.setColorR(rand.nextInt(255));
-        dot.setColorG(rand.nextInt(255));
-        dot.setColorB(rand.nextInt(255));
-//        this.dot.setOrigin(centerX, centerY);
-        dot_list.add(dot);
-//         new Dot(centerX, centerY,50,this); // when instructor complied will Call back to onDotChanged
-
-
+        Dot dot = new Dot(centerX, centerY, 60);
+        dots.addDot(dot);
     }
 
     public void onClearDots(View view){
-        dot_list.clear();
+        dots.clear();
         dotView.invalidate();
     }
 
     @Override
-    public void onDotChanged(Dot dot) {
+    public void onDotsChanged(Dots dots) {
         //Draw dot model to view
-        dotView.setDot(dot_list);
-
+        dotView.setDot(dots);
         dotView.invalidate(); // will call onCreate() Again
     }
 
@@ -87,17 +79,10 @@ public class MainActivity extends AppCompatActivity implements Dot.OnDotChangedL
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN){
             int x = (int) event.getX();
-            int y = (int) event.getY()-200;
-            Random rand = new Random();
+            int y = (int) event.getY();
 
-            Dot dot = new Dot(x, y, 80, this);
-            dot.setColorR(rand.nextInt(255));
-            dot.setColorG(rand.nextInt(255));
-            dot.setColorB(rand.nextInt(255));
-            dot_list.add(dot);
-
-
-
+            Dot dot = new Dot(x, y, 80);
+            dots.addDot(dot);
         }
         return super.onTouchEvent(event);
     }

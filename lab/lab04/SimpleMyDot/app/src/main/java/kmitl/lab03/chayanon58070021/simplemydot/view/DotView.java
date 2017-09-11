@@ -11,18 +11,18 @@ import android.view.View;
 import java.util.ArrayList;
 
 import kmitl.lab03.chayanon58070021.simplemydot.model.Dot;
+import kmitl.lab03.chayanon58070021.simplemydot.model.Dots;
 
 
 public class DotView extends View {
     private Paint paint;
-    private ArrayList<Dot> dot_list;
-
+    private Dots dots;
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (dot_list != null) {
-            for(Dot d: dot_list){
-                paint.setColor(Color.rgb(d.getColorR(),d.getColorG(),d.getColorB()));
+        if (dots != null) {
+            for(Dot d: dots.getDots()){
+                paint.setColor(Color.RED);
                 canvas.drawCircle(d.getCenterX(), d.getCenterY(), d.getRadius(), paint);
             }
         }
@@ -45,7 +45,7 @@ public class DotView extends View {
 
 
 
-    public void setDot(ArrayList<Dot> dot_list) {
-        this.dot_list = dot_list;
+    public void setDot(Dots dots) {
+        this.dots = dots;
     }
 }
