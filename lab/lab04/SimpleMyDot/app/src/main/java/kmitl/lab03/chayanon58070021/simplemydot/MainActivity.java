@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Random;
 
+import kmitl.lab03.chayanon58070021.simplemydot.model.Colors;
 import kmitl.lab03.chayanon58070021.simplemydot.model.Dot;
 import kmitl.lab03.chayanon58070021.simplemydot.model.DotParcelable;
 import kmitl.lab03.chayanon58070021.simplemydot.model.DotSerializable;
@@ -59,7 +60,8 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
         Random rand = new Random();
         int centerX = rand.nextInt(this.dotView.getWidth());
         int centerY = rand.nextInt(this.dotView.getHeight());
-        Dot dot = new Dot(centerX, centerY, 60);
+
+        Dot dot = new Dot(centerX, centerY, 30, new Colors().getColor());
         dots.addDot(dot);
     }
 
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
             int x = (int) event.getX();
             int y = (int) event.getY();
 
-            Dot dot = new Dot(x, y, 80);
+            Dot dot = new Dot(x, y, 50, new Colors().getColor());
             dots.addDot(dot);
         }
         return super.onTouchEvent(event);

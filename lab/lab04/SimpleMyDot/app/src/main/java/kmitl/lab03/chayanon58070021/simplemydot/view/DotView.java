@@ -22,7 +22,7 @@ public class DotView extends View {
         super.onDraw(canvas);
         if (dots != null) {
             for(Dot d: dots.getDots()){
-                paint.setColor(Color.RED);
+                paint.setColor(d.getColor());
                 canvas.drawCircle(d.getCenterX(), d.getCenterY(), d.getRadius(), paint);
             }
         }
