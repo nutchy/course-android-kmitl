@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
 
     android:layout_height="match_parent"
-    tools:context="kmitl.lab03.chayanon58070021.simplemydot.MainActivity"
+    tools:context="kmitl.lab04.chayanon58070021.simplemydot.MainActivity"
     tools:layout_editor_absoluteY="81dp"
     tools:layout_editor_absoluteX="0dp">
 
-    <kmitl.lab03.chayanon58070021.simplemydot.view.DotView
+    <kmitl.lab04.chayanon58070021.simplemydot.view.DotView
         android:id="@+id/dotview"
         android:layout_width="0dp"
         android:layout_height="0dp"

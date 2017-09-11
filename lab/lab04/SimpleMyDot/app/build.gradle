@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "kmitl.lab03.chayanon58070021.simplemydot"
+        applicationId "kmitl.lab04.chayanon58070021.simplemydot"
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
