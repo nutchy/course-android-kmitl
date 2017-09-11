@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
 
     private DotView dotView;
     private Dots dots;
+    private Colors colors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
         });
 
         //Set Default value
+        colors = new Colors();
         dots = new Dots();
         dots.setListerner(this);
         dotView = (DotView) findViewById(R.id.dotview);
@@ -59,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
         int centerX = rand.nextInt(this.dotView.getWidth());
         int centerY = rand.nextInt(this.dotView.getHeight());
 
-        Dot dot = new Dot(centerX, centerY, 90, new Colors().getColor());
+        Dot dot = new Dot(centerX, centerY, 90, colors.getColor());
         dots.addDot(dot);
     }
 
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
     public void onDotViewPressed(int x, int y) {
         int dotIndex = dots.findDot(x, y);
         if (dotIndex == -1) {
-        Dot dot = new Dot(x, y, 70, new Colors().getColor());
+        Dot dot = new Dot(x, y, 70, colors.getColor());
         dots.addDot(dot);}
         else {
             dots.remove(dotIndex);
