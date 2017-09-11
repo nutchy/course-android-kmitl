@@ -77,7 +77,12 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
 
     @Override
     public void onDotViewPressed(int x, int y) {
+        int dotIndex = dots.findDot(x, y);
+        if (dotIndex == -1) {
         Dot dot = new Dot(x, y, 70, new Colors().getColor());
-        dots.addDot(dot);
+        dots.addDot(dot);}
+        else {
+            dots.remove(dotIndex);
+        }
     }
 }

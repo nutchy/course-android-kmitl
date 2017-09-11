@@ -2,7 +2,10 @@ package kmitl.lab03.chayanon58070021.simplemydot.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.Shader;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -46,6 +49,7 @@ public class DotView extends View {
             for (Dot d : dots.getDots()) {
                 paint.setColor(d.getColor());
                 canvas.drawCircle(d.getCenterX(), d.getCenterY(), d.getRadius(), paint);
+
             }
         }
     }
