@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,12 +17,10 @@ import kmitl.lab03.chayanon58070021.simplemydot.model.DotSerializable;
 import kmitl.lab03.chayanon58070021.simplemydot.model.Dots;
 import kmitl.lab03.chayanon58070021.simplemydot.view.DotView;
 
-public class MainActivity extends AppCompatActivity implements Dots.OnDotsChangedListener {
+public class MainActivity extends AppCompatActivity implements Dots.OnDotsChangedListener, DotView.OnDotViewPressListener {
 
-    private Dot dot;
     private DotView dotView;
     private Dots dots;
-    private ArrayList<Dot> dot_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +33,10 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
         dotSerializable.setCenterY(20);
         dotSerializable.setRadius(30);
 
-        final DotParcelable dotParcelable = new DotParcelable(111,222,333);
+        final DotParcelable dotParcelable = new DotParcelable(111, 222, 333);
 
         Button btnOpenActivity = (Button) findViewById(R.id.open_activity);
-        btnOpenActivity.setOnClickListener(new View.OnClickListener(){
+        btnOpenActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Second_Activity.class);
@@ -54,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
         dots = new Dots();
         dots.setListerner(this);
         dotView = (DotView) findViewById(R.id.dotview);
+        dotView.setOnDotViewPressListener(this);
     }
 
     public void onRandomDot(View view) {
@@ -61,11 +59,11 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
         int centerX = rand.nextInt(this.dotView.getWidth());
         int centerY = rand.nextInt(this.dotView.getHeight());
 
-        Dot dot = new Dot(centerX, centerY, 30, new Colors().getColor());
+        Dot dot = new Dot(centerX, centerY, 90, new Colors().getColor());
         dots.addDot(dot);
     }
 
-    public void onClearDots(View view){
+    public void onClearDots(View view) {
         dots.clear();
         dotView.invalidate();
     }
@@ -78,14 +76,8 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN){
-            int x = (int) event.getX();
-            int y = (int) event.getY();
-
-            Dot dot = new Dot(x, y, 50, new Colors().getColor());
-            dots.addDot(dot);
-        }
-        return super.onTouchEvent(event);
+    public void onDotViewPressed(int x, int y) {
+        Dot dot = new Dot(x, y, 70, new Colors().getColor());
+        dots.addDot(dot);
     }
 }
