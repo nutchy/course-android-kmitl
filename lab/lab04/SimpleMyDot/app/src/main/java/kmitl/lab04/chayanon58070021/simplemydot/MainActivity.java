@@ -1,10 +1,13 @@
 package kmitl.lab04.chayanon58070021.simplemydot;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.Random;
 
@@ -68,6 +71,10 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
         dotView.invalidate();
     }
 
+    public void onShare(View view){
+        askPermission();
+    }
+
     @Override
     public void onDotsChanged(Dots dots) {
         //Draw dot model to view
@@ -83,6 +90,17 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
         dots.addDot(dot);}
         else {
             dots.remove(dotIndex);
+        }
+    }
+
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 999;
+    private void askPermission(){
+        int hasWriteExtPermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (hasWriteExtPermission != PackageManager.PERMISSION_GRANTED){
+            requestPermissions(new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_ASK_PERMISSIONS);
+            TextView tvStatus = (TextView) findViewById(R.id.status);
+            tvStatus.setText(String.valueOf(hasWriteExtPermission));
+            return;
         }
     }
 }
