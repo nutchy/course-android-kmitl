@@ -110,10 +110,9 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
     private File saveBitmap(Bitmap bm) {
         Date now = new Date();
         android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
-        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+ now + ".jpg";
-        File imageFile = new File(dirPath);
-        TextView dir = (TextView) findViewById(R.id.status);
-        dir.setText(dirPath);
+        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        File filedir = new File(dirPath);
+        File imageFile = new File(filedir,"simplemydot.jpg");
         FileOutputStream fOut;
         try {
             fOut = new FileOutputStream(imageFile);
