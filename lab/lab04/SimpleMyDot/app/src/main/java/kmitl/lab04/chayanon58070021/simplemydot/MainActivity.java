@@ -8,28 +8,22 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.net.URI;
 import java.util.Random;
 
 import kmitl.lab04.chayanon58070021.simplemydot.model.Colors;
 import kmitl.lab04.chayanon58070021.simplemydot.model.Dot;
-import kmitl.lab04.chayanon58070021.simplemydot.model.DotParcelable;
-import kmitl.lab04.chayanon58070021.simplemydot.model.DotSerializable;
 import kmitl.lab04.chayanon58070021.simplemydot.model.Dots;
 import kmitl.lab04.chayanon58070021.simplemydot.model.Screenshot;
 import kmitl.lab04.chayanon58070021.simplemydot.view.DotView;
@@ -70,13 +64,12 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
         dotView.invalidate();
     }
 
-    private void shareImageIntent(File file) {
-        Uri uri = Uri.fromFile(file);
-        Intent intent = new Intent();
+    public void shareImage(File file) {
+        Uri uri = FileProvider.getUriForFile(MainActivity.this,
+                BuildConfig.APPLICATION_ID + ".provider", file);
+        final Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("image/*");
-        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
-        intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
         intent.putExtra(Intent.EXTRA_STREAM, uri);
         try {
             startActivity(Intent.createChooser(intent, "Share Dots Screenshot"));
@@ -86,15 +79,15 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
     }
 
     public void onShareBtn(View view) {
-        onShare();
+        this.onShare();
     }
 
-    public void onShare() {
+    private void onShare() {
         if (askPermission()) {
             View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
-            Bitmap bitmap = screenshot.getScreenShot(rootView);
-            File imageFile = screenshot.saveBitmap(bitmap);
-            shareImageIntent(imageFile);
+            File imgfile = screenshot.saveBitmap(screenshot.getScreenShot(rootView));
+            shareImage(imgfile);
+
         }
     }
 
@@ -135,53 +128,6 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
                     }
                 }
             });
-
-//            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(final DialogInterface dialog, int which) {
-//                    AlertDialog.Builder builderInner = new AlertDialog.Builder(MainActivity.this);
-//                    builderInner.setView(seek);
-//                    builderInner.setTitle("Change Radius");
-//                    builderInner.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                        }
-//                    });
-//                    seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-//                        @Override
-//                        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onStartTrackingTouch(SeekBar seekBar) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onStopTrackingTouch(SeekBar seekBar) {
-//
-//                        }
-//                    });
-//                    builderInner.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialogInterface, int i) {
-//                            dialogInterface.dismiss();
-//
-//                        }
-//                    });
-//                    builderInner.show();
-//                    Toast.makeText(getApplicationContext(),
-//                            "OK", Toast.LENGTH_LONG).show();
-//                }
-//            });
-//            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    dialog.dismiss();
-//                }
-//            });
             builder.show();
         }
     }

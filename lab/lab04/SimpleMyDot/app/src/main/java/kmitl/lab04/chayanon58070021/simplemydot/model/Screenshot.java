@@ -1,6 +1,7 @@
 package kmitl.lab04.chayanon58070021.simplemydot.model;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Environment;
 import android.view.View;
 
@@ -13,6 +14,10 @@ import java.io.FileOutputStream;
 
 public class Screenshot {
 
+    public Screenshot() {
+    }
+
+
     public static Bitmap getScreenShot(View view) {
         View screenView = view.getRootView();
         screenView.setDrawingCacheEnabled(true);
@@ -21,7 +26,7 @@ public class Screenshot {
         return bitmap;
     }
 
-    public File saveBitmap(Bitmap bm) {
+    public static File saveBitmap(Bitmap bm) {
         String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath();
         File filedir = new File(dirPath);
         File imageFile = new File(filedir, "simplemydot.jpg");
