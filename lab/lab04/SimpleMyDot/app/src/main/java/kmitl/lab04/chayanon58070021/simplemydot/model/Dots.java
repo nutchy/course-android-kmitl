@@ -15,7 +15,6 @@ public class Dots {
     }
 
 
-
     private OnDotsChangedListener listener;
 
     public interface OnDotsChangedListener {
@@ -32,24 +31,32 @@ public class Dots {
 
     }
 
-    public void clear(){
+    public void clear() {
         this.dots.clear();
         this.listener.onDotsChanged(this);
     }
 
-    public int findDot(int x, int y){
-        for(int i = 0; i< dots.size(); i++){
-            double distance  = Math.sqrt(Math.pow(dots.get(i).getCenterX()-x, 2))
-                    + Math.sqrt(Math.pow(dots.get(i).getCenterY()-y, 2));
-            if (distance <= dots.get(i).getRadius()){
+    public int findDot(int x, int y) {
+        for (int i = 0; i < dots.size(); i++) {
+            double distance = Math.sqrt(Math.pow(dots.get(i).getCenterX() - x, 2))
+                    + Math.sqrt(Math.pow(dots.get(i).getCenterY() - y, 2));
+            if (distance <= dots.get(i).getRadius()) {
                 return i;
             }
         }
         return -1;
     }
 
-    public void remove(int index){
+    public void remove(int index) {
         this.dots.remove(index);
         this.listener.onDotsChanged(this);
+    }
+
+    public void undo() {
+        int index = dots.size() - 1;
+        if (index >= 0) {
+            this.dots.remove(index);
+            this.listener.onDotsChanged(this);
+        }
     }
 }

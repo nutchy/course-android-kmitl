@@ -164,6 +164,10 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
         return true;
     }
 
+    public void onUndo(View view) {
+        this.dots.undo();
+
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
