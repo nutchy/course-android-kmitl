@@ -10,6 +10,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -112,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
         android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
         String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath();
         File filedir = new File(dirPath);
-        File imageFile = new File(filedir,"simplemydot.jpg");
+        File imageFile = new File(filedir, "simplemydot.jpg");
         FileOutputStream fOut;
         try {
             fOut = new FileOutputStream(imageFile);
@@ -126,8 +128,12 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
     }
 
 
-    public void onShare(View view) {
-        if(askPermission()) {
+    public void onShareBtn(View view) {
+        onShare();
+    }
+
+    public void onShare() {
+        if (askPermission()) {
             View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
             Bitmap bitmap = getScreenShot(rootView);
             File imageFile = saveBitmap(bitmap);
@@ -154,11 +160,11 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
     }
 
     private boolean askPermission() {
-        int hasWriteExtPermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int hasWriteExtPermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         //when deny/not allow >> return -1, allow return >> 0
 
         if (hasWriteExtPermission != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 999);
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 999);
             return false;
         }
         return true;
@@ -178,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
                     // Permission Granted
                     Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT)
                             .show();
+                    onShare();
                 } else {
                     // Permission Denied
                     Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT)

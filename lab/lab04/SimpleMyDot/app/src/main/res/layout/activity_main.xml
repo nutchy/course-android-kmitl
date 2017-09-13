@@ -72,7 +72,7 @@
 
     <Button
         android:id="@+id/shareBtn"
-        android:onClick="onShare"
+        android:onClick="onShareBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/share"
