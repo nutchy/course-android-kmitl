@@ -15,11 +15,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import kmitl.lab04.chayanon58070021.simplemydot.model.Colors;
@@ -30,7 +34,8 @@ import kmitl.lab04.chayanon58070021.simplemydot.model.Dots;
 import kmitl.lab04.chayanon58070021.simplemydot.model.Screenshot;
 import kmitl.lab04.chayanon58070021.simplemydot.view.DotView;
 
-public class MainActivity extends AppCompatActivity implements Dots.OnDotsChangedListener, DotView.OnDotViewPressListener {
+public class MainActivity extends AppCompatActivity implements Dots.OnDotsChangedListener,
+        DotView.OnDotViewPressListener {
 
     private DotView dotView;
     private Dots dots;
@@ -102,14 +107,85 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
 
     @Override
     public void onDotViewPressed(int x, int y) {
-        int dotIndex = dots.findDot(x, y);
+        final int dotIndex = dots.findDot(x, y);
         if (dotIndex == -1) {
             Dot dot = new Dot(x, y, 70, colors.getColor());
             dots.addDot(dot);
         } else {
-            dots.remove(dotIndex);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            final SeekBar seek = new SeekBar(this);
+            seek.setMax(100);
+//            builder.setTitle("Do you want to?");
+            builder.setItems(new CharSequence[]{"Edit Color", "Edit Size", "Delete"},
+                    new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    switch (i){
+                        case 0:
+                            dots.editColor(dotIndex, colors.getColor());
+                            break;
+                        case 1:
+                            dots.editSize(dotIndex);
+                            break;
+                        case 2:
+                            dots.remove(dotIndex);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+
+//            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(final DialogInterface dialog, int which) {
+//                    AlertDialog.Builder builderInner = new AlertDialog.Builder(MainActivity.this);
+//                    builderInner.setView(seek);
+//                    builderInner.setTitle("Change Radius");
+//                    builderInner.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                        }
+//                    });
+//                    seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//                        @Override
+//                        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onStopTrackingTouch(SeekBar seekBar) {
+//
+//                        }
+//                    });
+//                    builderInner.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            dialogInterface.dismiss();
+//
+//                        }
+//                    });
+//                    builderInner.show();
+//                    Toast.makeText(getApplicationContext(),
+//                            "OK", Toast.LENGTH_LONG).show();
+//                }
+//            });
+//            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    dialog.dismiss();
+//                }
+//            });
+            builder.show();
         }
     }
+
 
     private boolean askPermission() {
         int hasWriteExtPermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);

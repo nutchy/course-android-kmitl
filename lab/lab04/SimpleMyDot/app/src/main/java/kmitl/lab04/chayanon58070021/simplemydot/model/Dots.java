@@ -2,6 +2,7 @@ package kmitl.lab04.chayanon58070021.simplemydot.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by nutchy on 9/11/2017 AD.
@@ -58,5 +59,15 @@ public class Dots {
             this.dots.remove(index);
             this.listener.onDotsChanged(this);
         }
+    }
+
+    public void editColor(int index, int color){
+        this.dots.get(index).setColor(color);
+        this.listener.onDotsChanged(this);
+    }
+
+    public void editSize(int index){
+        this.dots.get(index).setRadius(new Random().nextInt(110));
+        this.listener.onDotsChanged(this);
     }
 }

@@ -49,4 +49,11 @@ public class Dot {
         this.centerY = centerY;
     }
 
+    public void setColor(int color) {
+        this.color = color;
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
+    }
 }

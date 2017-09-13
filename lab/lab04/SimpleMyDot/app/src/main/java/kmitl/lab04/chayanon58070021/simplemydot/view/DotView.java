@@ -16,11 +16,12 @@ public class DotView extends View {
     private Paint paint;
     private Dots dots;
 
-    public interface OnDotViewPressListener{
+    public interface OnDotViewPressListener {
         void onDotViewPressed(int x, int y);
     }
 
     private OnDotViewPressListener onDotViewPressListener;
+
     public void setOnDotViewPressListener(
             OnDotViewPressListener onDotViewPressListener) {
         this.onDotViewPressListener = onDotViewPressListener;
@@ -30,10 +31,9 @@ public class DotView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                this.onDotViewPressListener
-                        .onDotViewPressed(
-                                (int)event.getX(),
-                                (int)event.getY());
+                this.onDotViewPressListener.onDotViewPressed(
+                        (int) event.getX(),
+                        (int) event.getY());
                 return true;
         }
         return false;
