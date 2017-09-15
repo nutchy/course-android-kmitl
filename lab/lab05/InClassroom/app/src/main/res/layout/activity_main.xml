@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="chayanon58070021.lab05.inclassroom.MainActivity">
+
+    <!--<fragment
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="chayanon58070021.lab05.inclassroom.fragment.MainFragment"
+        tools:layout="@layout/fragment_main"></fragment>-->
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/access"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/access" />
+    </FrameLayout>
+
+
+</LinearLayout>
