@@ -67,7 +67,7 @@ public class DotView extends View {
     }
 
 
-    public void setDot(Dots dots) {
+    public void setDots(Dots dots) {
         this.dots = dots;
     }
 

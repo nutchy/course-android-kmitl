@@ -4,6 +4,7 @@ package kmitl.lab05.chayanon58070021.simplemydot.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,18 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
 
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            dots = savedInstanceState.getParcelable("dots");
+        } else {
+            dots = new Dots();
+        }
+        dots.setListerner(this);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -54,8 +67,6 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
         init(rootView);
         //Set Default value
         colors = new Colors();
-        dots = new Dots();
-        dots.setListerner(this);
         screenshot = new Screenshot();
 
         // Inflate the layout for this fragment
@@ -78,18 +89,18 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.randomBtn:
-                onRandomDot(view);
+                onRandomDot();
                 break;
             case R.id.undoBtn:
-                onUndo(view);
+                onUndo();
                 break;
             case R.id.clearBtn:
-                onClearDots(view);
+                onClearDots();
                 break;
         }
     }
 
-    public void onRandomDot(View view) {
+    public void onRandomDot() {
         Random rand = new Random();
         int centerX = rand.nextInt(this.dotView.getWidth());
         int centerY = rand.nextInt(this.dotView.getHeight());
@@ -98,19 +109,19 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
         dots.addDot(dot);
     }
 
-    public void onClearDots(View view) {
+    public void onClearDots() {
         dots.clear();
         dotView.invalidate();
     }
 
-    public void onUndo(View view) {
+    public void onUndo() {
         this.dots.undo();
     }
 
     @Override
     public void onDotsChanged(Dots dots) {
         //Draw dot model to view
-        dotView.setDot(dots);
+        dotView.setDots(dots);
         dotView.invalidate();
     }
 
@@ -148,4 +159,12 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
 
     }
 
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            dotView.setDots(dots);
+        }
+    }
 }
