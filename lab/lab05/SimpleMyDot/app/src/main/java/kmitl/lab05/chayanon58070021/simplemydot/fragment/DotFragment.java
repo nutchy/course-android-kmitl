@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.Random;
+import java.util.logging.Logger;
 
 import kmitl.lab05.chayanon58070021.simplemydot.R;
 import kmitl.lab05.chayanon58070021.simplemydot.model.Colors;
@@ -123,6 +124,7 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
         //Draw dot model to view
         dotView.setDots(dots);
         dotView.invalidate();
+        System.out.println(dots.toString());
     }
 
     @Override
@@ -132,7 +134,18 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
             Dot dot = new Dot(x, y, 70, colors.getColor());
             dots.addDot(dot);
         } else {
+            dots.remove(dotIndex);
+        }
 
+    }
+
+    @Override
+    public void onDotViewLongPressed(int x, int y) {
+        final int dotIndex = dots.findDot(x, y);
+        if (dotIndex == -1) {
+            Dot dot = new Dot(x, y, 70, colors.getColor());
+            dots.addDot(dot);
+        } else {
 //             Replace context with getActivity()
             final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setItems(new CharSequence[]{"Edit Color", "Edit Size", "Delete"},
@@ -156,9 +169,7 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
                     });
             builder.show();
         }
-
     }
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -167,4 +178,6 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
             dotView.setDots(dots);
         }
     }
+
+
 }

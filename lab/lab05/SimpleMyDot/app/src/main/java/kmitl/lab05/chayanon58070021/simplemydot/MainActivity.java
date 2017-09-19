@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
         screenshot = new Screenshot();
 
-
         if(savedInstanceState == null) {
             initialDotViewFragment();
         }

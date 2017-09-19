@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -18,6 +19,7 @@ public class DotView extends View {
 
     public interface OnDotViewPressListener {
         void onDotViewPressed(int x, int y);
+        void onDotViewLongPressed(int x, int y);
     }
 
     private OnDotViewPressListener onDotViewPressListener;
@@ -29,21 +31,16 @@ public class DotView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                this.onDotViewPressListener.onDotViewPressed(
-                        (int) event.getX(),
-                        (int) event.getY());
-                return true;
-        }
-        return false;
+        return gestureDetector.onTouchEvent(event);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (dots != null) {
+            System.out.println(dots.toString() +"- OnDraw");
             for (Dot d : dots.getDots()) {
+
                 paint.setColor(d.getColor());
                 canvas.drawCircle(d.getCenterX(), d.getCenterY(), d.getRadius(), paint);
 
@@ -70,6 +67,26 @@ public class DotView extends View {
     public void setDots(Dots dots) {
         this.dots = dots;
     }
+
+    final GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            onDotViewPressListener.onDotViewPressed((int) e.getX(), (int) e.getY());
+            return super.onSingleTapUp(e);
+        }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+            onDotViewPressListener.onDotViewLongPressed((int) e.getX(), (int) e.getY());
+        }
+    });
+
+
 
 
 }
