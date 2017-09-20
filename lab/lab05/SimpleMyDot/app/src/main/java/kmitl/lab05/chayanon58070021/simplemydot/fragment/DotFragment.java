@@ -1,19 +1,32 @@
 package kmitl.lab05.chayanon58070021.simplemydot.fragment;
 
 
+import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import java.io.File;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import kmitl.lab05.chayanon58070021.simplemydot.BuildConfig;
+import kmitl.lab05.chayanon58070021.simplemydot.MainActivity;
 import kmitl.lab05.chayanon58070021.simplemydot.R;
 import kmitl.lab05.chayanon58070021.simplemydot.model.Colors;
 import kmitl.lab05.chayanon58070021.simplemydot.model.Dot;
@@ -37,9 +50,7 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
 
     private DotView dotView;
     private Dots dots;
-    private Colors colors;
     private Screenshot screenshot;
-
     public DotFragment() {
         // Required empty public constructor
     }
@@ -81,7 +92,6 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
         View rootView = inflater.inflate(R.layout.fragment_dot, container, false);
         init(rootView);
         //Set Default value
-        colors = new Colors();
         screenshot = new Screenshot();
 
         // Inflate the layout for this fragment
@@ -92,6 +102,7 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
         Button randomBtn = rootView.findViewById(R.id.randomBtn);
         Button undoBtn = rootView.findViewById(R.id.undoBtn);
         Button clearBtn = rootView.findViewById(R.id.clearBtn);
+
         randomBtn.setOnClickListener(this);
         undoBtn.setOnClickListener(this);
         clearBtn.setOnClickListener(this);
@@ -161,28 +172,6 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
             dots.addDot(dot);
         } else {
             onDotSelectedListener.onDotSelected(dots.getDotByIndex(dotIndex), dotIndex);
-//             Replace context with getActivity()
-//            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//            builder.setItems(new CharSequence[]{"Edit Color", "Edit Size", "Delete"},
-//                    new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialogInterface, int i) {
-//                            switch (i){
-//                                case 0:
-//                                    dots.editColor(dotIndex, colors.getColor());
-//                                    break;
-//                                case 1:
-//                                    dots.editSize(dotIndex);
-//                                    break;
-//                                case 2:
-//                                    dots.remove(dotIndex);
-//                                    break;
-//                                default:
-//                                    break;
-//                            }
-//                        }
-//                    });
-//            builder.show();
         }
     }
 
@@ -199,17 +188,11 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        if (savedInstanceState != null) {
-//            dotView.setDots(dots);
-//
-//        }
         dotView.setDots(dots);
     }
 
     public void updateDotByIndex(Dot dot, int index){
         dots.setDots(dot,index);
     }
-
-
 
 }
