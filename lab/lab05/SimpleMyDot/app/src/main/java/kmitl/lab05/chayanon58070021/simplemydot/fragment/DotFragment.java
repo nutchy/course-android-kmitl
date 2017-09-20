@@ -63,6 +63,7 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
 
         if (savedInstanceState != null) {
             dots = savedInstanceState.getParcelable("dots");
+            dotView.invalidate();
         } else {
             dots = new Dots();
         }
@@ -182,13 +183,30 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
         }
     }
 
+
+    // Restore args when call this fragment again.
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("dots", dots);
+    }
+
+
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState != null) {
-            dotView.setDots(dots);
-        }
+//        if (savedInstanceState != null) {
+//            dotView.setDots(dots);
+//
+//        }
+        dotView.setDots(dots);
     }
+
+    public void updateDotByIndex(Dot dot, int index){
+        dots.setDots(dot,index);
+    }
+
 
 
 }

@@ -24,7 +24,7 @@ import kmitl.lab05.chayanon58070021.simplemydot.model.Screenshot;
 public class MainActivity extends AppCompatActivity implements
         DotFragment.OnDotSelectedListener, EditDotFragment.OnDotUpdateListener{
 
-
+    private final String DOT_FRAGMENT = "dotfragment";
     private Screenshot screenshot;
 
     @Override
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements
     private void initialDotViewFragment(){
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, DotFragment.newInstance(this))
+                .add(R.id.fragmentContainer, DotFragment.newInstance(this), DOT_FRAGMENT)
                 .commit();
     }
 
@@ -56,8 +56,11 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onDotUpdated(Dot dot) {
-        getSupportFragmentManager().popBackStack();
+    public void onDotUpdated(Dot dot, int dotIndex) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStack();
+        DotFragment fragment = (DotFragment) fragmentManager.findFragmentByTag(DOT_FRAGMENT);
+        fragment.updateDotByIndex(dot, dotIndex);
     }
 
     @Override
