@@ -70,4 +70,8 @@ public class Dots {
         this.dots.get(index).setRadius(new Random().nextInt(110));
         this.listener.onDotsChanged(this);
     }
+
+    public Dot getDotByIndex(int i){
+        return this.getDots().get(i);
+    }
 }

@@ -17,9 +17,12 @@ import android.view.View;
 import android.widget.Toast;
 import java.io.File;
 import kmitl.lab05.chayanon58070021.simplemydot.fragment.DotFragment;
+import kmitl.lab05.chayanon58070021.simplemydot.fragment.EditDotFragment;
+import kmitl.lab05.chayanon58070021.simplemydot.model.Dot;
 import kmitl.lab05.chayanon58070021.simplemydot.model.Screenshot;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+        DotFragment.OnDotSelectedListener, EditDotFragment.OnDotUpdateListener{
 
 
     private Screenshot screenshot;
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private void initialDotViewFragment(){
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, DotFragment.newInstance())
+                .add(R.id.fragmentContainer, DotFragment.newInstance(this))
                 .commit();
     }
 
@@ -50,6 +53,16 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.fragmentContainer, fragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void onDotUpdated(Dot dot) {
+        getSupportFragmentManager().popBackStack();
+    }
+
+    @Override
+    public void onDotSelected(Dot dot, int dotIndex) {
+        showFragment(new EditDotFragment().newInstance(dot, dotIndex, this));
     }
 
     public void shareImage(File file) {

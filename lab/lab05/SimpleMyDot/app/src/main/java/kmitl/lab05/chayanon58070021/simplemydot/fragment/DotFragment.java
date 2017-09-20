@@ -27,6 +27,11 @@ import kmitl.lab05.chayanon58070021.simplemydot.view.DotView;
 public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
         DotView.OnDotViewPressListener , View.OnClickListener{
 
+    public interface OnDotSelectedListener {
+        void onDotSelected(Dot d, int dotIndex);
+    }
+
+    private OnDotSelectedListener onDotSelectedListener;
 
     private DotView dotView;
     private Dots dots;
@@ -37,16 +42,20 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
         // Required empty public constructor
     }
 
-    public static DotFragment newInstance(){
+    public static DotFragment newInstance(OnDotSelectedListener listener){
 
         Bundle args = new Bundle();
 
         // Set put arguments
         DotFragment fragment = new DotFragment();
+        fragment.setOnDotSelectedListener(listener);
         fragment.setArguments(args);
         return fragment;
     }
 
+    public void setOnDotSelectedListener(OnDotSelectedListener onDotSelectedListener) {
+        this.onDotSelectedListener = onDotSelectedListener;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +67,7 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
             dots = new Dots();
         }
         dots.setListerner(this);
+
     }
 
     @Override
@@ -146,28 +156,29 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
             Dot dot = new Dot(x, y, 70, colors.getColor());
             dots.addDot(dot);
         } else {
+            onDotSelectedListener.onDotSelected(dots.getDotByIndex(dotIndex), dotIndex);
 //             Replace context with getActivity()
-            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setItems(new CharSequence[]{"Edit Color", "Edit Size", "Delete"},
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            switch (i){
-                                case 0:
-                                    dots.editColor(dotIndex, colors.getColor());
-                                    break;
-                                case 1:
-                                    dots.editSize(dotIndex);
-                                    break;
-                                case 2:
-                                    dots.remove(dotIndex);
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                    });
-            builder.show();
+//            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//            builder.setItems(new CharSequence[]{"Edit Color", "Edit Size", "Delete"},
+//                    new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            switch (i){
+//                                case 0:
+//                                    dots.editColor(dotIndex, colors.getColor());
+//                                    break;
+//                                case 1:
+//                                    dots.editSize(dotIndex);
+//                                    break;
+//                                case 2:
+//                                    dots.remove(dotIndex);
+//                                    break;
+//                                default:
+//                                    break;
+//                            }
+//                        }
+//                    });
+//            builder.show();
         }
     }
 

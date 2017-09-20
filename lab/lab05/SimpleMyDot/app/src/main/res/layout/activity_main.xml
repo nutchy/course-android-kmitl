@@ -9,15 +9,16 @@
     tools:layout_editor_absoluteY="81dp"
     tools:layout_editor_absoluteX="0dp">
 
-    <fragment
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragmentContainer"
         android:name="kmitl.lab05.chayanon58070021.simplemydot.fragment.DotFragment"
         tools:layout="@layout/fragment_dot"
+        android:background="#FFFFFF"
         tools:layout_editor_absoluteY="8dp"
         tools:layout_editor_absoluteX="8dp" >
-    </fragment>
+    </FrameLayout>
 
 
 </android.support.constraint.ConstraintLayout>
