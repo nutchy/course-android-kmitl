@@ -2,9 +2,11 @@ package kmitl.lab05.chayanon58070021.simplemydot.fragment;
 
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,9 @@ import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 import kmitl.lab05.chayanon58070021.simplemydot.R;
+import kmitl.lab05.chayanon58070021.simplemydot.model.Colors;
 import kmitl.lab05.chayanon58070021.simplemydot.model.Dot;
+import kmitl.lab05.chayanon58070021.simplemydot.view.DotView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +35,7 @@ public class EditDotFragment extends Fragment implements View.OnClickListener{
 
     public interface OnDotUpdateListener{
         void onDotUpdated(Dot dot,int dotIndex);
+
     }
 
     private OnDotUpdateListener onDotUpdateListener;
@@ -70,31 +75,44 @@ public class EditDotFragment extends Fragment implements View.OnClickListener{
         dotIndex = getArguments().getInt("dotIndex");
     }
 
-    int seek_val_final;
+    int seek_val_final, centerX, centerY;
 
     private void initView(View rootView){
         Button cancelBtn = rootView.findViewById(R.id.cancelBtn);
         Button confirmBtn = rootView.findViewById(R.id.confirmBtn);
         Button colorBtn = rootView.findViewById(R.id.colorBtn);
+        final TextView xPos = rootView.findViewById(R.id.xPos);
+        final TextView yPos = rootView.findViewById(R.id.yPos);
+        final TextView radius = rootView.findViewById(R.id.seekVal);
+        
+        
         cancelBtn.setOnClickListener(this);
         confirmBtn.setOnClickListener(this);
         colorBtn.setOnClickListener(this);
 
 
-
+        SeekBar seekBarX = rootView.findViewById(R.id.seekBarX);
+        SeekBar seekBarY = rootView.findViewById(R.id.seekBarY);
         SeekBar seekBar = rootView.findViewById(R.id.seekBar);
+
+        System.out.println(dot.getCenterX()+" "+dot.getCenterY()+" "+dot.getRadius());
+        seekBarX.setMax(1200);
+        seekBarY.setMax(1500);
+        System.out.println(rootView.getWidth());
         seekBar.setProgress(dot.getRadius());
-        final TextView seekValue = rootView.findViewById(R.id.seekVal);
-        seekValue.setText(seekBar.getProgress()+"");
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        seekBarX.setProgress(dot.getCenterX());
+        seekBarY.setProgress(dot.getCenterY());
 
-            int progress_val;
+        xPos.setText("X : "+seekBarX.getProgress()+"");
+        yPos.setText("Y : "+seekBarY.getProgress()+"");
+        radius.setText("Radius : "+seekBar.getProgress()+"");
 
+        seekBarX.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progess, boolean b) {
-                progress_val = progess;
-                seek_val_final = progress_val;
-                seekValue.setText(seekBar.getProgress()+"");
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                updateDot(i, dot.getCenterY(), dot.getRadius());
+                xPos.setText("X : " + seekBar.getProgress());
+
             }
 
             @Override
@@ -104,7 +122,48 @@ public class EditDotFragment extends Fragment implements View.OnClickListener{
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                seekValue.setText(seekBar.getProgress()+"");
+                xPos.setText("X : " + seekBar.getProgress());
+
+            }
+        });
+
+        seekBarY.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                updateDot(dot.getCenterX(), i, dot.getRadius());
+                yPos.setText("Y : " + seekBar.getProgress());
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                yPos.setText("Y : " + seekBar.getProgress());
+
+            }
+        });
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                updateDot(dot.getCenterX(), dot.getCenterY(),progress);
+                radius.setText("Radius : "+seekBar.getProgress()+"");
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                radius.setText("Radius : "+seekBar.getProgress()+"");
+
             }
 
         });
@@ -122,22 +181,25 @@ public class EditDotFragment extends Fragment implements View.OnClickListener{
                 showPicker(view);
                 break;
             case R.id.confirmBtn:
-                dot.setRadius(seek_val_final);
+                System.out.println(dot.getCenterX()+"-"+dot.getCenterY()+"-"+dot.getRadius()+"-"+dot.getColor());
                 onDotUpdateListener.onDotUpdated(dot, dotIndex);
+
                 break;
         }
     }
 
-    private void updateDot(int color, int radius){
-        this.dot.setColor(color);
+    private void updateDot(int x, int y, int radius){
         this.dot.setRadius(radius);
+        this.dot.setCenterX(x);
+        this.dot.setCenterY(y);
     }
 
     private void showPicker(View view){
         ColorPickerDialogBuilder
-                .with(getContext())
+                .with(getActivity())
                 .setTitle("Choose color")
-                .initialColor(dot.getColor())
+                .initialColor(Color.rgb(dot.getColors().getRed(), dot.getColors().getBlue(),
+                dot.getColors().getGreen()))
                 .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
                 .setOnColorSelectedListener(new OnColorSelectedListener() {
@@ -151,7 +213,12 @@ public class EditDotFragment extends Fragment implements View.OnClickListener{
                     public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
 //                        changeBackgroundColor(selectedColor);
 
-                        updateDot(selectedColor, seek_val_final);
+//                        updateDot(selectedColor, seek_val_final);
+                        Colors colors = new Colors();
+                        colors.setRed(Color.red(selectedColor));
+                        colors.setGreen(Color.green(selectedColor));
+                        colors.setBlue(Color.blue(selectedColor));
+                        dot.setColors(colors);
                         System.out.println(selectedColor);
                     }
                 })

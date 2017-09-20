@@ -27,6 +27,8 @@ import kmitl.lab05.chayanon58070021.simplemydot.view.DotView;
 public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
         DotView.OnDotViewPressListener , View.OnClickListener{
 
+
+    private static final String DOTS = "dots";
     public interface OnDotSelectedListener {
         void onDotSelected(Dot d, int dotIndex);
     }
@@ -62,12 +64,13 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            dots = savedInstanceState.getParcelable("dots");
-            dotView.invalidate();
+            dots = savedInstanceState.getParcelable(DOTS);
+
         } else {
             dots = new Dots();
         }
         dots.setListerner(this);
+        onDotSelectedListener = (OnDotSelectedListener) getActivity();
 
     }
 
@@ -117,7 +120,7 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
         int centerX = rand.nextInt(this.dotView.getWidth());
         int centerY = rand.nextInt(this.dotView.getHeight());
 
-        Dot dot = new Dot(centerX, centerY, 90, colors.getColor());
+        Dot dot = new Dot(centerX, centerY, 90, new Colors());
         dots.addDot(dot);
     }
 
@@ -142,7 +145,7 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
     public void onDotViewPressed(int x, int y) {
         final int dotIndex = dots.findDot(x, y);
         if (dotIndex == -1) {
-            Dot dot = new Dot(x, y, 70, colors.getColor());
+            Dot dot = new Dot(x, y, 70, new Colors());
             dots.addDot(dot);
         } else {
             dots.remove(dotIndex);
@@ -154,7 +157,7 @@ public class DotFragment extends Fragment implements Dots.OnDotsChangedListener,
     public void onDotViewLongPressed(int x, int y) {
         final int dotIndex = dots.findDot(x, y);
         if (dotIndex == -1) {
-            Dot dot = new Dot(x, y, 70, colors.getColor());
+            Dot dot = new Dot(x, y, 70, new Colors());
             dots.addDot(dot);
         } else {
             onDotSelectedListener.onDotSelected(dots.getDotByIndex(dotIndex), dotIndex);

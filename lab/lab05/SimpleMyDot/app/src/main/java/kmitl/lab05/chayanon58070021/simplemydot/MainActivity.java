@@ -57,11 +57,11 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onDotUpdated(Dot dot, int dotIndex) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.popBackStack();
-        DotFragment fragment = (DotFragment) fragmentManager.findFragmentByTag(DOT_FRAGMENT);
+        DotFragment fragment = (DotFragment) getSupportFragmentManager().findFragmentByTag(DOT_FRAGMENT);
         fragment.updateDotByIndex(dot, dotIndex);
+        getSupportFragmentManager().popBackStack();
     }
+
 
     @Override
     public void onDotSelected(Dot dot, int dotIndex) {

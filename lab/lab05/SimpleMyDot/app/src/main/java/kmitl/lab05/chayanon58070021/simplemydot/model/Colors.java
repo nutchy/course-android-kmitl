@@ -13,8 +13,36 @@ import java.util.Random;
 public class Colors {
 
     private List<Integer> colors = new ArrayList<>();
+    private int red, green, blue;
+
+    public int getRed() {
+        return red;
+    }
+
+    public void setRed(int red) {
+        this.red = red;
+    }
+
+    public int getGreen() {
+        return green;
+    }
+
+    public void setGreen(int green) {
+        this.green = green;
+    }
+
+    public int getBlue() {
+        return blue;
+    }
+
+    public void setBlue(int blue) {
+        this.blue = blue;
+    }
 
     public Colors() {
+        setRed(new Random().nextInt(255));
+        setBlue(new Random().nextInt(255));
+        setGreen(new Random().nextInt(255));
         colors.add(Color.RED);
         colors.add(Color.BLUE);
         colors.add(Color.CYAN);

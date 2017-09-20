@@ -2,6 +2,7 @@ package kmitl.lab05.chayanon58070021.simplemydot.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -22,6 +23,7 @@ public class DotView extends View {
         void onDotViewLongPressed(int x, int y);
     }
 
+
     private OnDotViewPressListener onDotViewPressListener;
 
     public void setOnDotViewPressListener(
@@ -41,7 +43,12 @@ public class DotView extends View {
             System.out.println(dots.toString() +"- OnDraw");
             for (Dot d : dots.getDots()) {
 
-                paint.setColor(d.getColor());
+//                paint.setColor(d.getColor());
+                paint.setColor(
+                        Color.rgb(d.getColors().getRed(),
+                                d.getColors().getGreen(),
+                                d.getColors().getBlue()));
+
                 canvas.drawCircle(d.getCenterX(), d.getCenterY(), d.getRadius(), paint);
 
             }

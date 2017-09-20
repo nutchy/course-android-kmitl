@@ -12,6 +12,19 @@ public class Dot implements Parcelable {
     private int centerX;
     private int centerY;
     private int radius;
+    private Colors colors;
+
+    public Colors getColors() {
+        return colors;
+    }
+
+    public void setColors(Colors colors) {
+        this.colors = colors;
+    }
+
+    public void setCenterY(int centerY) {
+        this.centerY = centerY;
+    }
 
     public int getCenterY() {
         return centerY;
@@ -22,15 +35,14 @@ public class Dot implements Parcelable {
     }
 
     public int getCenterX() {
-
         return centerX;
     }
 
-    public Dot(int centerX, int centerY, int radius, int color) {
+    public Dot(int centerX, int centerY, int radius, Colors colors) {
         this.centerX = centerX;
         this.centerY = centerY;
         this.radius = radius;
-        this.color = color;
+        this.colors = colors;
     }
 
     public int getColor() {
