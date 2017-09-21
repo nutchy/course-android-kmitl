@@ -21,8 +21,14 @@ public class Dots implements Parcelable {
 
     private OnDotsChangedListener listener;
 
-    public interface OnDotsChangedListener {
+    public interface OnDotsChangedListener extends Parcelable {
         void onDotsChanged(Dots dots);
+
+        @Override
+        int describeContents();
+
+        @Override
+        void writeToParcel(Parcel parcel, int i);
     }
 
     public void setListerner(OnDotsChangedListener listener) {
@@ -92,7 +98,7 @@ public class Dots implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeTypedList(this.dots);
-        dest.writeParcelable((Parcelable) this.listener, flags);
+        dest.writeParcelable(this.listener, flags);
     }
 
     public Dots() {
