@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements Dots.OnDotsChange
         intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_STREAM, uri);
         try {
-            startActivity(Intent.createChooser(intent, "Share Dots Screenshot"));
+            startActivity(Intent.createChooser(intent, "Share Dot Screenshot"));
         } catch (ActivityNotFoundException e) {
             Toast.makeText(this, "No App Available", Toast.LENGTH_SHORT).show();
         }

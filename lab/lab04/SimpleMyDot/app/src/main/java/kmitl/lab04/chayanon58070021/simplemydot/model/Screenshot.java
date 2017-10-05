@@ -29,7 +29,7 @@ public class Screenshot {
     public static File saveBitmap(Bitmap bm) {
         String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath();
         File filedir = new File(dirPath);
-        File imageFile = new File(filedir, "simplemydot.jpg");
+        File imageFile = new File(filedir, "simplemydots.jpg");
         FileOutputStream fOut;
         try {
             fOut = new FileOutputStream(imageFile);
