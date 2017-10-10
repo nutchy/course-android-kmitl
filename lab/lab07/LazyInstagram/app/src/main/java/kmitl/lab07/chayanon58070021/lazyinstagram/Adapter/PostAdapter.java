@@ -15,14 +15,14 @@ import kmitl.lab07.chayanon58070021.lazyinstagram.R;
  * Created by nutchy on 10/6/2017 AD.
  */
 
-class Holder extends RecyclerView.ViewHolder{
-    public ImageView image;
-
-    public Holder(View itemView) {
-        super(itemView);
-        image = (ImageView) itemView.findViewById(R.id.imageView);
-    }
-}
+//class Holder extends RecyclerView.ViewHolder{
+//    public ImageView image;
+//
+//    public Holder(View itemView) {
+//        super(itemView);
+//        image = (ImageView) itemView.findViewById(R.id.imageView);
+//    }
+//}
 
 
 public class PostAdapter extends RecyclerView.Adapter<Holder> {
@@ -49,7 +49,7 @@ public class PostAdapter extends RecyclerView.Adapter<Holder> {
 
     @Override
     public void onBindViewHolder(Holder holder, int position) {
-        ImageView image = holder.image;
+        ImageView image = holder.imageView;
         Glide.with(context).load(data[position]).into(image);
     }
 
