@@ -40,11 +40,14 @@
 |4| [My Dot app (Use intent)](https://github.com/up1/course-android-kmitl/wiki/Lab04)|
 |5| [My Dot app (Use Fragment)](https://github.com/up1/course-android-kmitl/wiki/Lab05) |
 |6| TODO |
-|7| TODO |
+|7| [LazyInstagram](https://github.com/up1/course-android-kmitl/wiki/Lab07) |
 
-[ข้อมูลคะแนนการบ้านแต่ละข้อ](https://goo.gl/RwHn8j)
+## Final project :cupid::cupid:
+รายละเอียดของ [Final project](https://github.com/up1/course-android-kmitl/wiki/Final_project)
 
-[Link เสนอ Project](https://goo.gl/AidC36)
+## เอกสารเพิ่มเติม
+* [ข้อมูลคะแนนการบ้านแต่ละข้อ](https://goo.gl/RwHn8j)
+* [Link เสนอ Project](https://goo.gl/AidC36)
 
 
 ## การส่งงาน
