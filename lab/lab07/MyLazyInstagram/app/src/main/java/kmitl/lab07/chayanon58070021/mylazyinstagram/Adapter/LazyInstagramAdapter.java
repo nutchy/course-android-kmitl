@@ -7,18 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.List;
-
-import kmitl.lab07.chayanon58070021.mylazyinstagram.Holder.PostItemHolder;
-import kmitl.lab07.chayanon58070021.mylazyinstagram.Holder.UserDetailHolder;
 import kmitl.lab07.chayanon58070021.mylazyinstagram.Layout;
 import kmitl.lab07.chayanon58070021.mylazyinstagram.Model.UserProfile;
 import kmitl.lab07.chayanon58070021.mylazyinstagram.R;
-
-/**
- * Created by nutchy on 10/13/2017 AD.
- */
 
 public class LazyInstagramAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

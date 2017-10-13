@@ -7,10 +7,6 @@ import android.widget.TextView;
 
 import kmitl.lab07.chayanon58070021.mylazyinstagram.R;
 
-/**
- * Created by nutchy on 10/11/2017 AD.
- */
-
 public class PostItemHolder extends RecyclerView.ViewHolder {
     public ImageView imageView;
     public TextView like;

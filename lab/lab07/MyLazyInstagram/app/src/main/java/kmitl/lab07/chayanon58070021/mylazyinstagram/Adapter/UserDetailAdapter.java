@@ -14,18 +14,11 @@ import kmitl.lab07.chayanon58070021.mylazyinstagram.Holder.UserDetailHolder;
 import kmitl.lab07.chayanon58070021.mylazyinstagram.Model.UserProfile;
 import kmitl.lab07.chayanon58070021.mylazyinstagram.R;
 
-/**
- * Created by nutchy on 10/13/2017 AD.
- */
 
 public class UserDetailAdapter extends RecyclerView.Adapter<UserDetailHolder> {
 
     private Context context;
     private UserProfile userProfile;
-
-    public UserProfile getUserProfile() {
-        return userProfile;
-    }
 
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
