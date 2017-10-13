@@ -9,7 +9,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
         <ImageView
             android:id="@+id/avatar"
@@ -25,7 +27,7 @@
 
             <TextView
                 android:id="@+id/user_id"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="\@ID"
@@ -41,7 +43,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:text="Post\n30"
+                    android:text="Post\n"
                     android:textAlignment="center" />
 
                 <TextView
@@ -49,7 +51,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:text="Following\n40"
+                    android:text="Following\n"
                     android:textAlignment="center" />
 
                 <TextView
@@ -57,7 +59,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:text="Follower\n50"
+                    android:text="Follower\n"
                     android:textAlignment="center" />
             </LinearLayout>
 

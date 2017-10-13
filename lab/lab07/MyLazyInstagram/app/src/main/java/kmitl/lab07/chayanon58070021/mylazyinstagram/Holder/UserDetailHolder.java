@@ -12,14 +12,13 @@ import kmitl.lab07.chayanon58070021.mylazyinstagram.R;
  */
 
 public class UserDetailHolder extends RecyclerView.ViewHolder {
-    public TextView tvId;
-    public TextView tvPost;
-    public TextView tvFollowing;
-    public TextView tvFollower;
-    public TextView tvBio;
-    public ImageView avatar;
+    private TextView tvId;
+    private TextView tvPost;
+    private TextView tvFollowing;
+    private TextView tvFollower;
+    private TextView tvBio;
+    private ImageView avatar;
 
-    public static final int ID = 0;
     public UserDetailHolder(View itemView) {
         super(itemView);
         tvId = (TextView) itemView.findViewById(R.id.user_id);
@@ -28,5 +27,29 @@ public class UserDetailHolder extends RecyclerView.ViewHolder {
         tvFollower = (TextView) itemView.findViewById(R.id.follower);
         tvBio = (TextView) itemView.findViewById(R.id.bio);
         avatar = (ImageView) itemView.findViewById(R.id.avatar);
+    }
+
+    public TextView getTvId() {
+        return tvId;
+    }
+
+    public TextView getTvPost() {
+        return tvPost;
+    }
+
+    public TextView getTvFollowing() {
+        return tvFollowing;
+    }
+
+    public TextView getTvFollower() {
+        return tvFollower;
+    }
+
+    public TextView getTvBio() {
+        return tvBio;
+    }
+
+    public ImageView getAvatar() {
+        return avatar;
     }
 }

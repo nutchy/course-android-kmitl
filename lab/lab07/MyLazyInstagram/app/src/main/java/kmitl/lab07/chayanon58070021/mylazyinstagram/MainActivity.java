@@ -74,18 +74,27 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void display(UserProfile userProfile){
-        // Show UserDetail & Posts
+
+
         List<Layout> layouts = new ArrayList<>();
         layouts.add(new Layout(Layout.TYPE_USER_DETAIL));
         layouts.add(new Layout(Layout.TYPE_POST_ITEM));
 
-        // Main Adapter
+        PostAdapter postAdapter = new PostAdapter(this);
         LazyInstagramAdapter lazyInstagramAdapter = new LazyInstagramAdapter(this, layouts);
         lazyInstagramAdapter.setUserProfile(userProfile);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.main_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(lazyInstagramAdapter);
 
+    }
+
+
+    private void displayImages(UserProfile userProfile){
+        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        Glide.with(MainActivity.this)
+                .load(userProfile.getUrlProfile())
+                .into(imageView);
     }
 
 }
