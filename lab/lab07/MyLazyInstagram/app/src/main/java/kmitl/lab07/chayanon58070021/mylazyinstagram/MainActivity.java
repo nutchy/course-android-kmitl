@@ -27,18 +27,20 @@ public class MainActivity extends AppCompatActivity {
 
     public OkHttpClient client;
     public Retrofit retrofit;
+    public LazyInstagramApi lazyInstagramApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lazyinstagram_main);
-        getConnection("cartoon");
-        getUserProfile("cartoon");
+        getConnection();
+        getContentByName("cartoon");
+
 
 
     }
 
-    public void getConnection(String userName){
+    public void getConnection(){
         client = new OkHttpClient.Builder().build();
         retrofit = new Retrofit
                 .Builder()
@@ -46,18 +48,12 @@ public class MainActivity extends AppCompatActivity {
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        lazyInstagramApi = retrofit.create(LazyInstagramApi.class);
     }
 
-    private void getPostByName(String userName){
-
-
-    }
-
-    private void getUserProfile(String userName){
-
+    private void getContentByName(String userName){
 
         // Connect Api if success >> onResponse , else >> onFailure
-        LazyInstagramApi lazyInstagramApi = retrofit.create(LazyInstagramApi.class);
         Call<UserProfile> call = lazyInstagramApi.getProfile(userName);
         call.enqueue(new Callback<UserProfile>() {
             @Override
@@ -67,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
                     UserProfile userProfile = response.body();
 
                     display(userProfile);
-//                    displayImages(userProfile);
 
                 }
             }
@@ -79,36 +74,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void display(UserProfile userProfile){
-//        TextView textUser = (TextView) findViewById(R.id.textView);
-//        textUser.setText("@"+userProfile.getUser());
-//        TextView textPost = (TextView)  findViewById(R.id.textView2);
-//        textPost.setText("Post\n"+userProfile.getPost());
-//        TextView textFollower =  (TextView) findViewById(R.id.textView3);
-//        textFollower.setText("Follower\n"+userProfile.getFollower());
-//        TextView textFollwing = (TextView)  findViewById(R.id.textView4);
-//        textFollwing.setText("Following\n"+userProfile.getFollowing());
-//        TextView textBio = (TextView)  findViewById(R.id.textView8);
-//        textBio.setText(userProfile.getBio());
-
+        // Show UserDetail & Posts
         List<Layout> layouts = new ArrayList<>();
-//        layouts.add(new Layout(Layout.TYPE_USER_DETAIL));
+        layouts.add(new Layout(Layout.TYPE_USER_DETAIL));
         layouts.add(new Layout(Layout.TYPE_POST_ITEM));
 
-        PostAdapter postAdapter = new PostAdapter(this);
+        // Main Adapter
         LazyInstagramAdapter lazyInstagramAdapter = new LazyInstagramAdapter(this, layouts);
-        lazyInstagramAdapter.setPosts(userProfile.getPosts());
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
+        lazyInstagramAdapter.setUserProfile(userProfile);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.main_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(lazyInstagramAdapter);
 
-    }
-
-
-    private void displayImages(UserProfile userProfile){
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
-        Glide.with(MainActivity.this)
-                .load(userProfile.getUrlProfile())
-                .into(imageView);
     }
 
 }

@@ -15,11 +15,11 @@ public class PostItemHolder extends RecyclerView.ViewHolder {
     public ImageView imageView;
     public TextView like;
     public TextView comment;
-    public static final int ID = 1;
+
+    public RecyclerView recyclerView;
     public PostItemHolder(View itemView) {
         super(itemView);
         imageView = (ImageView) itemView.findViewById(R.id.imageView);
-
 
     }
 }

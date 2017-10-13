@@ -9,54 +9,46 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.List;
+
 import kmitl.lab07.chayanon58070021.mylazyinstagram.Holder.PostItemHolder;
+import kmitl.lab07.chayanon58070021.mylazyinstagram.Model.Post;
 import kmitl.lab07.chayanon58070021.mylazyinstagram.R;
-
-/**
- * Created by nutchy on 10/6/2017 AD.
- */
-
-//class Holder extends RecyclerView.ViewHolder{
-//    public ImageView image;
-//
-//    public Holder(View itemView) {
-//        super(itemView);
-//        image = (ImageView) itemView.findViewById(R.id.imageView);
-//    }
-//}
 
 
 public class PostAdapter extends RecyclerView.Adapter<PostItemHolder> {
-    String[] data = {
-            "http://api.learn2crack.com/android/images/donut.png",
-            "http://api.learn2crack.com/android/images/eclair.png",
-            "http://api.learn2crack.com/android/images/ginger.png",
-            "http://api.learn2crack.com/android/images/froyo.png"
-    };
 
+    private List<Post> posts;
     private Context context;
 
     public PostAdapter(Context context) {
         this.context = context;
     }
 
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
     @Override
     public PostItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView = inflater.inflate(R.layout.item, null, false);
-        PostItemHolder holder = new PostItemHolder(itemView);
-        return holder;
+        View itemView = inflater.inflate(R.layout.post_item, parent, false);
+        return new PostItemHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(PostItemHolder holder, int position) {
         ImageView image = holder.imageView;
-        Glide.with(context).load(data[position]).into(image);
+        Glide.with(context).load(posts.get(position).getUrl()).into(image);
     }
 
     @Override
     public int getItemCount() {
-        return data.length;
+        return posts.size();
     }
 
 }

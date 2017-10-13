@@ -12,12 +12,12 @@ import kmitl.lab07.chayanon58070021.mylazyinstagram.R;
  */
 
 public class UserDetailHolder extends RecyclerView.ViewHolder {
-    private TextView tvId;
-    private TextView tvPost;
-    private TextView tvFollowing;
-    private TextView tvFollower;
-    private TextView tvBio;
-    private ImageView avatar;
+    public TextView tvId;
+    public TextView tvPost;
+    public TextView tvFollowing;
+    public TextView tvFollower;
+    public TextView tvBio;
+    public ImageView avatar;
 
     public static final int ID = 0;
     public UserDetailHolder(View itemView) {
