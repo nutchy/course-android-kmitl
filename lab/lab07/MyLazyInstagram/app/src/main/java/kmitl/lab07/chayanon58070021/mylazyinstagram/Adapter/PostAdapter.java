@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import java.util.List;
 import kmitl.lab07.chayanon58070021.mylazyinstagram.Holder.PostItemHolder;
@@ -37,6 +39,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostItemHolder> {
     public void onBindViewHolder(PostItemHolder holder, int position) {
         ImageView image = holder.imageView;
         Glide.with(context).load(posts.get(position).getUrl()).into(image);
+
+        TextView tvLike = holder.like;
+        tvLike.setText(String.valueOf(posts.get(position).getLike()));
+
+        TextView tvComment = holder.comment;
+        tvComment.setText(String.valueOf(posts.get(position).getComment()));
     }
 
     @Override

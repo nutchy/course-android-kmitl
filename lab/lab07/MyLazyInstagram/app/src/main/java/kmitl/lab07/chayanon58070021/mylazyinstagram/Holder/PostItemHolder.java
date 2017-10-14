@@ -15,6 +15,8 @@ public class PostItemHolder extends RecyclerView.ViewHolder {
     public PostItemHolder(View itemView) {
         super(itemView);
         imageView = (ImageView) itemView.findViewById(R.id.imageView);
+        like = (TextView) itemView.findViewById(R.id.tvLike);
+        comment = (TextView) itemView.findViewById(R.id.tvComment);
 
     }
 }
