@@ -7,6 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
 import java.util.List;
 import kmitl.lab07.chayanon58070021.mylazyinstagram.Layout;
 import kmitl.lab07.chayanon58070021.mylazyinstagram.Model.UserProfile;
@@ -17,6 +20,8 @@ public class LazyInstagramAdapter extends RecyclerView.Adapter<RecyclerView.View
     private Context context;
     private List<Layout> layouts;
     private UserProfile userProfile;
+    private Boolean isGrid = true;
+    public ImageButton gridBtn, listBtn;
 
     public LazyInstagramAdapter(Context context, List<Layout> layouts) {
         this.context = context;
@@ -37,7 +42,29 @@ public class LazyInstagramAdapter extends RecyclerView.Adapter<RecyclerView.View
                 return new UserDetailViewHolder(vUserDetail);
             case Layout.TYPE_POST_ITEM:
                 View vPost = inflater.inflate(R.layout.rc_post_item, parent, false);
-                return new PostsViewHolder(vPost);
+                final PostsViewHolder postsViewHolder = new PostsViewHolder(vPost);
+
+                gridBtn = (ImageButton) vPost.findViewById(R.id.gridBtn);
+                listBtn = (ImageButton) vPost.findViewById(R.id.listBtn);
+                gridBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        isGrid = true;
+                        postsViewHolder.recyclerView
+                                .setLayoutManager(new GridLayoutManager(context, 3));
+
+                    }
+                });
+                listBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        isGrid = false;
+                        postsViewHolder.recyclerView
+                                .setLayoutManager(new LinearLayoutManager(context));
+
+                    }
+                });
+                return postsViewHolder;
         }
         return null;
     }
@@ -63,7 +90,11 @@ public class LazyInstagramAdapter extends RecyclerView.Adapter<RecyclerView.View
     private void viewPosts(PostsViewHolder holder){
         PostAdapter postAdapter = new PostAdapter(context);
         postAdapter.setPosts(userProfile.getPosts());
-        holder.recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
+        if (isGrid) {
+            holder.recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
+        } else {
+            holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        }
         holder.recyclerView.setAdapter(postAdapter);
     }
 
@@ -84,6 +115,10 @@ public class LazyInstagramAdapter extends RecyclerView.Adapter<RecyclerView.View
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.rc_post);
         }
+
+        public RecyclerView getRecyclerView() {
+            return recyclerView;
+        }
     }
 
     public class UserDetailViewHolder extends RecyclerView.ViewHolder {
@@ -94,6 +129,7 @@ public class LazyInstagramAdapter extends RecyclerView.Adapter<RecyclerView.View
             recyclerView = (RecyclerView) itemView.findViewById(R.id.rc_user);
         }
     }
+
 
 
 }

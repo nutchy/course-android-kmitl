@@ -1,12 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:paddingTop="0dp">
 
+
+        <ImageButton
+            android:id="@+id/gridBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#FFF"
+            app:srcCompat="@mipmap/ic_grid"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:layout_gravity="center"
+            />
+
+        <ImageButton
+            android:id="@+id/listBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#FFF"
+            app:srcCompat="@mipmap/ic_list"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:layout_gravity="center"
+            />
+    </LinearLayout>
     <android.support.v7.widget.RecyclerView
-        android:paddingTop="8dp"
+        android:background="#FFF"
         android:id="@+id/rc_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

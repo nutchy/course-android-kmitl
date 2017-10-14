@@ -1,9 +1,16 @@
 package kmitl.lab07.chayanon58070021.mylazyinstagram;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+
 import java.util.ArrayList;
 import java.util.List;
 import kmitl.lab07.chayanon58070021.mylazyinstagram.Adapter.LazyInstagramAdapter;
@@ -28,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lazyinstagram_main);
         getConnection();
-        getContentByName("nature");
+        getContentByName("cartoon");
     }
 
     public void getConnection(){
@@ -74,5 +81,38 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(lazyInstagramAdapter);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.user, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.changeUser){
+            selectUser();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void selectUser(){
+        final String[] user = {"cartoon", "nature", "android"};
+
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Select Account");
+        builder.setItems(user, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String selected = user[which];
+                getContentByName(selected);
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.create();
+        builder.show();
     }
 }
