@@ -20,12 +20,9 @@ public class UserDetailAdapter extends RecyclerView.Adapter<UserDetailHolder> {
     private Context context;
     private UserProfile userProfile;
 
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
-    }
-
-    public UserDetailAdapter(Context context) {
+    public UserDetailAdapter(Context context, UserProfile userProfile) {
         this.context = context;
+        this.userProfile = userProfile;
     }
 
     @Override

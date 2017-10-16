@@ -20,11 +20,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostItemHolder> {
     private List<Post> posts;
     private Context context;
 
-    public PostAdapter(Context context) {
+    public PostAdapter(Context context, List<Post> posts) {
         this.context = context;
-    }
-
-    public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
 

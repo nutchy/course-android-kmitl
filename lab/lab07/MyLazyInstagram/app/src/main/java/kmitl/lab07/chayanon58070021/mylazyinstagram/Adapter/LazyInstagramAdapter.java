@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import java.util.List;
 import kmitl.lab07.chayanon58070021.mylazyinstagram.Layout;
@@ -80,16 +79,14 @@ public class LazyInstagramAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     private void viewUserDetail(UserDetailViewHolder holder){
-        UserDetailAdapter userDetailAdapter = new UserDetailAdapter(context);
-        userDetailAdapter.setUserProfile(userProfile);
+        UserDetailAdapter userDetailAdapter = new UserDetailAdapter(context, userProfile);
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
         holder.recyclerView.setAdapter(userDetailAdapter);
 
     }
 
     private void viewPosts(PostsViewHolder holder){
-        PostAdapter postAdapter = new PostAdapter(context);
-        postAdapter.setPosts(userProfile.getPosts());
+        PostAdapter postAdapter = new PostAdapter(context, userProfile.getPosts());
         if (isGrid) {
             holder.recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
         } else {
