@@ -2,4 +2,6 @@
     <string name="app_name">MyLazyInstagram</string>
     <string name="user">user</string>
     <string name="selectlayout">selectlayout</string>
+    <string name="id">\@ID</string>
+    <string name="post_n">Post</string>
 </resources>
