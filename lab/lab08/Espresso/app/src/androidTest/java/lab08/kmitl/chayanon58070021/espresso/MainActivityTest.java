@@ -2,25 +2,14 @@ package lab08.kmitl.chayanon58070021.espresso;
 
 
 import android.support.test.espresso.ViewInteraction;
-import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
-import android.support.v7.widget.RecyclerView;
+import android.support.test.runner.AndroidJUnit4;;
 import android.test.suitebuilder.annotation.LargeTest;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
-
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
@@ -172,11 +161,11 @@ public class MainActivityTest {
         appCompatButton2.perform(click());
 
         ViewInteraction textName = onView(withRecyclerView(R.id.list)
-                .atPositionOnView(2, R.id.textName));
+                .atPositionOnView(1, R.id.textName));
         textName.check(matches(withText("Ladarat")));
 
         ViewInteraction textAge = onView(withRecyclerView(R.id.list)
-                .atPositionOnView(2, R.id.textAge));
+                .atPositionOnView(1, R.id.textAge));
         textAge.check(matches(withText("20")));
 
 
@@ -184,18 +173,63 @@ public class MainActivityTest {
 
     @Test
     public void testCase7() {
+        ViewInteraction appCompatEditText = onView(
+                allOf(withId(R.id.editTExtName), isDisplayed()));
+        appCompatEditText.perform(click());
 
+        ViewInteraction appCompatEditText2 = onView(
+                allOf(withId(R.id.editTExtName), isDisplayed()));
+        appCompatEditText2.perform(replaceText("Somkait"), closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText3 = onView(
+                allOf(withId(R.id.editTextAge), isDisplayed()));
+        appCompatEditText3.perform(replaceText("80"), closeSoftKeyboard());
+
+        ViewInteraction appCompatButton = onView(
+                allOf(withId(R.id.buttonAdded), withText("ADDED"), isDisplayed()));
+        appCompatButton.perform(click());
+
+        ViewInteraction appCompatButton2 = onView(
+                allOf(withId(R.id.buttonGotoList), withText("GO TO LIST"), isDisplayed()));
+        appCompatButton2.perform(click());
+
+        ViewInteraction textName = onView(withRecyclerView(R.id.list)
+                .atPositionOnView(2, R.id.textName));
+        textName.check(matches(withText("Somkait")));
+
+        ViewInteraction textAge = onView(withRecyclerView(R.id.list)
+                .atPositionOnView(2, R.id.textAge));
+        textAge.check(matches(withText("80")));
     }
 
+    @Test
+    public void testCase8() {
+        ViewInteraction appCompatEditText = onView(
+                allOf(withId(R.id.editTExtName), isDisplayed()));
+        appCompatEditText.perform(click());
 
+        ViewInteraction appCompatEditText2 = onView(
+                allOf(withId(R.id.editTExtName), isDisplayed()));
+        appCompatEditText2.perform(replaceText("Prayoch"), closeSoftKeyboard());
 
+        ViewInteraction appCompatEditText3 = onView(
+                allOf(withId(R.id.editTextAge), isDisplayed()));
+        appCompatEditText3.perform(replaceText("60"), closeSoftKeyboard());
 
+        ViewInteraction appCompatButton = onView(
+                allOf(withId(R.id.buttonAdded), withText("ADDED"), isDisplayed()));
+        appCompatButton.perform(click());
 
+        ViewInteraction appCompatButton2 = onView(
+                allOf(withId(R.id.buttonGotoList), withText("GO TO LIST"), isDisplayed()));
+        appCompatButton2.perform(click());
 
+        ViewInteraction textName = onView(withRecyclerView(R.id.list)
+                .atPositionOnView(3, R.id.textName));
+        textName.check(matches(withText("Prayoch")));
 
-
-
-
-
-
+        ViewInteraction textAge = onView(withRecyclerView(R.id.list)
+                .atPositionOnView(3, R.id.textAge));
+        textAge.check(matches(withText("60")));
+    }
 }
