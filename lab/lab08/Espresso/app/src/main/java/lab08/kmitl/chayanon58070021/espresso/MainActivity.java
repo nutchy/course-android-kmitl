@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.editTextAge)
     EditText editTextAge;
+
+
 
     private CommonSharePreference preference;
     private UserInfoList userInfoList;
@@ -58,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
     public void gotoList() {
         Intent intent = new Intent(this, UserInfoListActivity.class);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.buttonClearList)
+    public void clearList(){
+        userInfoList.clearList();
+        preference.save(UserInfoListActivity.EXTTRA_LIST, userInfoList);
+        Toast.makeText(this, "List is now Empty", Toast.LENGTH_SHORT);
     }
 
     private void setUserInfo(String name, String age) {

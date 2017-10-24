@@ -54,4 +54,10 @@
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/buttonClearList"
+        android:text="Clear List"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
