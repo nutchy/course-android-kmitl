@@ -163,4 +163,26 @@ public class MainActivityTest {
                 .check(matches(withText("60")));
 
     }
+
+    @Test
+    public void testCase9() {
+        onView(withId(R.id.editTextName)).perform(click());
+
+        onView(withId(R.id.editTextName)).perform(replaceText("Prayoch"), closeSoftKeyboard());
+
+        onView(withId(R.id.editTextAge)).perform(replaceText("50"), closeSoftKeyboard());
+
+        onView(withId(R.id.buttonAdded)).perform(click());
+
+        onView(withId(R.id.buttonGotoList)).perform(click());
+
+        onView(withRecyclerView(R.id.list)
+                .atPositionOnView(4, R.id.textName))
+                .check(matches(withText("Prayoch")));
+
+        onView(withRecyclerView(R.id.list)
+                .atPositionOnView(4, R.id.textAge))
+                .check(matches(withText("50")));
+
+    }
 }
