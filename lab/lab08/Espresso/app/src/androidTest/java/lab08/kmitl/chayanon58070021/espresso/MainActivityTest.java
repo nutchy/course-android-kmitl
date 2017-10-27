@@ -35,8 +35,7 @@ public class MainActivityTest {
     @Test
     public void testCase1() {
 
-        // no input in each text field , press Added Button
-        // result : found "Please Enter user info"
+        // โดยไม่กรอก Name และ Age กดปุ่ม ADDED จะต้องเจอ Please Enter user info
 
         onView(withId(R.id.buttonAdded)).check(matches(isDisplayed()));
 
@@ -50,6 +49,9 @@ public class MainActivityTest {
 
     @Test
     public void testCase2() {
+
+        //โดยไม่กรอก Name และ Age=20 กดปุ่ม ADDED จะต้องเจอ Please Enter user info
+
         onView(withId(R.id.editTextAge)).perform(replaceText("20"));
 
         onView(withId(R.id.buttonAdded)).perform(click());
@@ -61,6 +63,9 @@ public class MainActivityTest {
 
     @Test
     public void testCase3() {
+
+        //ยังไม่มีการเพิ่ม UserInfo และกด GO TO LIST จะเจอ Not Found
+
         onView(withId(R.id.buttonGotoList)).perform(click());
 
         onView(withId(R.id.textNotFound)).check(matches(withText("Not Found")));
@@ -68,6 +73,8 @@ public class MainActivityTest {
 
     @Test
     public void testCase4() {
+
+        // โดยไม่กรอก Age และ Name=Ying กดปุ่ม ADDED จะต้องเจอ Please Enter user info
 
         onView(withId(R.id.editTextName)).perform(replaceText("Ying"));
 
@@ -80,6 +87,9 @@ public class MainActivityTest {
 
     @Test
     public void testCase5() {
+
+        // โดยกรอก Name=Ying และ Age=20 กดปุ่ม ADDED และกด GO TO LIST จะต้องเจอ Ying อายุ 20 เป็นตัวแรก
+        // atPositionOnView = 0
 
         onView(withId(R.id.editTextName)).perform(replaceText("Ying"), closeSoftKeyboard());
 
@@ -100,6 +110,10 @@ public class MainActivityTest {
 
     @Test
     public void testCase6() {
+
+        //โดยกรอก Name=Ladarat และ Age=20 กดปุ่ม ADDED และกด GO TO LIST
+        // จะต้องเจอ Ladarat อายุ 20 ใน ListView ลำดับที่ 2
+
         onView(withId(R.id.editTextName)).perform(click());
 
         onView(withId(R.id.editTextName)).perform(replaceText("Ladarat"), closeSoftKeyboard());
@@ -123,6 +137,10 @@ public class MainActivityTest {
 
     @Test
     public void testCase7() {
+
+        // โดยกรอก Name=Somkait และ Age=80 กดปุ่ม ADDED และกด GO TO LIST
+        // จะต้องเจอ Somkait อายุ 80 ใน ListView ลำดับที่ 3
+
         onView(withId(R.id.editTextName)).perform(click());
 
         onView(withId(R.id.editTextName)).perform(replaceText("Somkait"), closeSoftKeyboard());
@@ -144,6 +162,10 @@ public class MainActivityTest {
 
     @Test
     public void testCase8() {
+
+        // โดยกรอก Name=Prayoch และ Age=60 กดปุ่ม ADDED และกด GO TO LIST
+        // จะต้องเจอ Prayoch อายุ 60 ใน ListView ลำดับที่ 4
+
         onView(withId(R.id.editTextName)).perform(click());
 
         onView(withId(R.id.editTextName)).perform(replaceText("Prayoch"), closeSoftKeyboard());
@@ -166,6 +188,10 @@ public class MainActivityTest {
 
     @Test
     public void testCase9() {
+
+        // โดยกรอก Name=Prayoch และ Age=50 กดปุ่ม ADDED และกด GO TO LIST
+        // จะต้องเจอ Prayoch อายุ 50 ใน ListView ลำดับที่ 5
+
         onView(withId(R.id.editTextName)).perform(click());
 
         onView(withId(R.id.editTextName)).perform(replaceText("Prayoch"), closeSoftKeyboard());
