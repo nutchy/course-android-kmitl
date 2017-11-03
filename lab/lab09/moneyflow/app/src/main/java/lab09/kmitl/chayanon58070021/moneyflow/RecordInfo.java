@@ -20,7 +20,12 @@ class RecordInfo {
     private String detail;
 
     @ColumnInfo(name = "AMOUNT")
-    private String amount;
+    private float amount;
+
+    @Override
+    public String toString() {
+        return String.format("%s - %s - %s", type, detail, amount);
+    }
 
     public int getId() {
         return id;
@@ -46,11 +51,11 @@ class RecordInfo {
         this.detail = detail;
     }
 
-    public String getAmount() {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 }
