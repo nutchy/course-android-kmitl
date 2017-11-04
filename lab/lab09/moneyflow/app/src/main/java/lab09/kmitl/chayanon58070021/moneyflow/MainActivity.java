@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected RecordInfo doInBackground(Void... voids) {
                 RecordInfo recordInfo = new RecordInfo();
-                recordInfo.setType("income");
+                recordInfo.setType("outcome");
                 recordInfo.setAmount(100);
                 recordInfo.setDetail("Food");
                 recordDB.getRecordInfoDAO().insert(recordInfo);
@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
         new AsyncTask<Void, Void, List<RecordInfo>>() {
             @Override
             protected List<RecordInfo> doInBackground(Void... voids) {
-                List<RecordInfo> result = recordDB.getRecordInfoDAO().showAll();
+//                List<RecordInfo> result = recordDB.getRecordInfoDAO().showAll();
+                List<RecordInfo> result = recordDB.getRecordInfoDAO().queryByType("outcome");
                 return result;
             }
 

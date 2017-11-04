@@ -12,10 +12,13 @@ import java.util.List;
 @Dao
 interface RecordInfoDAO {
 
+
     @Insert
     void insert(RecordInfo recordInfo);
 
     @Query("SELECT * FROM RECORD_INFO")
     List<RecordInfo> showAll();
 
+    @Query("SELECT * FROM RECORD_INFO WHERE TYPE = :income")
+    List<RecordInfo> queryByType(String income);
 }
