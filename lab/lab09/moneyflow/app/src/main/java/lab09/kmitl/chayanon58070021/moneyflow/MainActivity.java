@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private RecordDB recordDB;
     private Intent intent;
+    TextView total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button addBtn = findViewById(R.id.addRecordBtn);
         addBtn.setOnClickListener(this);
 
+        total = findViewById(R.id.totalIncomeTv);
+
+
         new AsyncTask<Void, Void, RecordInfo>() {
 
             @Override
@@ -38,6 +43,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 recordInfo.setAmount(100);
                 recordInfo.setDetail("Food");
                 recordDB.getRecordInfoDAO().insert(recordInfo);
+
+                recordInfo.setType("income");
+                recordDB.getRecordInfoDAO().insert(recordInfo);
+                recordDB.getRecordInfoDAO().insert(recordInfo);
                 return null;
             }
         }.execute();
@@ -45,8 +54,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new AsyncTask<Void, Void, List<RecordInfo>>() {
             @Override
             protected List<RecordInfo> doInBackground(Void... voids) {
-//                List<RecordInfo> result = recordDB.getRecordInfoDAO().showAll();
-                List<RecordInfo> result = recordDB.getRecordInfoDAO().queryByType("outcome");
+                List<RecordInfo> result = recordDB.getRecordInfoDAO().showAll();
+//                List<RecordInfo> result = recordDB.getRecordInfoDAO().queryByType("outcome");
+
+                int totalIncome = 0;
+                for(RecordInfo r : result){
+                    totalIncome += r.getAmount();
+                }
+                total.setText(totalIncome+"");
                 return result;
             }
 
@@ -56,8 +71,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         , android.R.layout.simple_list_item_1, recordInfos);
                 ListView recordList = findViewById(R.id.recordList);
                 recordList.setAdapter(adapter);
+
             }
+
+
         }.execute();
+
+
 
     }
 
