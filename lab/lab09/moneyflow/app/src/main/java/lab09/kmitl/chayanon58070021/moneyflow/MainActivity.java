@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private RecordDB recordDB;
@@ -44,9 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 recordInfo.setDetail("Food");
                 recordDB.getRecordInfoDAO().insert(recordInfo);
 
-                recordInfo.setType("income");
-                recordDB.getRecordInfoDAO().insert(recordInfo);
-                recordDB.getRecordInfoDAO().insert(recordInfo);
                 return null;
             }
         }.execute();
@@ -56,12 +53,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             protected List<RecordInfo> doInBackground(Void... voids) {
                 List<RecordInfo> result = recordDB.getRecordInfoDAO().showAll();
 //                List<RecordInfo> result = recordDB.getRecordInfoDAO().queryByType("outcome");
-
-                int totalIncome = 0;
-                for(RecordInfo r : result){
-                    totalIncome += r.getAmount();
-                }
-                total.setText(totalIncome+"");
                 return result;
             }
 
@@ -71,20 +62,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         , android.R.layout.simple_list_item_1, recordInfos);
                 ListView recordList = findViewById(R.id.recordList);
                 recordList.setAdapter(adapter);
-
+                int totalIncome = 0;
+                for(RecordInfo r : recordInfos){
+                    totalIncome += r.getAmount();
+                }
+                total.setText(totalIncome+"");
             }
-
-
         }.execute();
-
-
-
     }
-
 
 
     @Override
     public void onClick(View view) {
         startActivity(intent);
     }
+
+
 }
