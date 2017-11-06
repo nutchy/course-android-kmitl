@@ -8,5 +8,5 @@
     <string name="amount">amount</string>
     <string name="amount_Tv">จำนวนเงิน</string>
     <string name="desc_Tv">รายการ</string>
-    <string name="saveBtn">บันทึก</string>
+    <string name="save">บันทึก</string>
 </resources>
