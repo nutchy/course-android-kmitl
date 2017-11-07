@@ -15,6 +15,8 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
 
     private EditText desc, amount;
     private RecordDB recordDB;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,7 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
                 recordInfo.setAmount(Integer.parseInt(amount.getText()+""));
                 recordInfo.setType(getType());
                 recordDB.getRecordInfoDAO().insert(recordInfo);
+
                 return null;
             }
         }.execute();
