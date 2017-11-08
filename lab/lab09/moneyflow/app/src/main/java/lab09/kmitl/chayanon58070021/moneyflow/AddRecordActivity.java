@@ -12,7 +12,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-public class AddRecordActivity extends AppCompatActivity implements View.OnClickListener{
+public class AddRecordActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText desc, amount;
     private RecordDB recordDB;
@@ -34,26 +34,29 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
-        insertRecord();
-        finishActivity();
-
+        if (desc.getText().length() == 0 || amount.getText().toString().length() == 0) {
+            Toast.makeText(this, "Please enter in this field.",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            insertRecord();
+            finishActivity();
+        }
     }
 
-    private void finishActivity(){
+    private void finishActivity() {
 
         Intent output = new Intent();
-//        output.putExtra("test", "Test");
         setResult(RESULT_OK, output);
         finish();
     }
 
     private void insertRecord() {
-        new AsyncTask<Void, Void, RecordInfo>(){
+        new AsyncTask<Void, Void, RecordInfo>() {
             @Override
             protected RecordInfo doInBackground(Void... voids) {
                 RecordInfo recordInfo = new RecordInfo();
-                recordInfo.setDetail(desc.getText()+"");
-                recordInfo.setAmount(Integer.parseInt(amount.getText()+""));
+                recordInfo.setDetail(desc.getText() + "");
+                recordInfo.setAmount(Integer.parseInt(amount.getText() + ""));
                 recordInfo.setType(getType());
                 recordDB.getRecordInfoDAO().insert(recordInfo);
                 return null;
@@ -67,18 +70,14 @@ public class AddRecordActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    public String getType(){
+    public String getType() {
         RadioGroup radioBtnGroup = findViewById(R.id.radioGroup);
         int selectedId = radioBtnGroup.getCheckedRadioButtonId();
 
-        String TYPE = "";
+        if (selectedId == R.id.incomeRBtn) return "income";
+        else if (selectedId == R.id.outcomeRBtn) return "expense";
+        else return null;
 
-        if (selectedId == R.id.incomeRBtn) TYPE = "income";
-        else if (selectedId == R.id.outcomeRBtn) TYPE = "expense";
-
-        System.out.println(TYPE);
-
-        return TYPE;
     }
 
 

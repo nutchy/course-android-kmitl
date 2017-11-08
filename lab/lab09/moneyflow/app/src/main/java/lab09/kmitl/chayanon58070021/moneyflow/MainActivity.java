@@ -64,11 +64,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 System.out.println("size :"+recordInfos.size());
                 recordInfoAdapter.notifyDataSetChanged();
 
-                int totalIncome = 0;
+                int totalBalance = 0;
                 for(RecordInfo r : recordInfos){
-                    totalIncome += r.getAmount();
+                    if (r.getType().equals("income"))
+                    totalBalance += r.getAmount();
+                    else totalBalance -= r.getAmount();
                 }
-                total.setText(totalIncome+"");
+                total.setText(totalBalance+"");
             }
         }.execute();
     }

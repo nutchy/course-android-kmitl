@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class UpdateRecordActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -21,7 +22,10 @@ public class UpdateRecordActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_record);
         Button saveBtn = findViewById(R.id.save_Btn);
+        Button deleteBtn = findViewById(R.id.deleteBtn);
+
         saveBtn.setOnClickListener(this);
+        deleteBtn.setOnClickListener(this);
 
         recordInfo = getIntent().getParcelableExtra("RecordInfoParcel");
         System.out.println(recordInfo.getDetail());
@@ -37,20 +41,42 @@ public class UpdateRecordActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View view) {
-        insertRecord();
-        finishActivity();
+        switch (view.getId()){
+            case R.id.save_Btn:
+                if (desc.getText().length() == 0 || amount.getText().toString().length() == 0){
+                    Toast.makeText(this, "Please enter in this field.",
+                            Toast.LENGTH_LONG).show();
+                }else {
+                    updateRecord();
+                    finishActivity();
+                }
+                break;
+            case R.id.deleteBtn:
+                deleteRecord();
+                finishActivity();
+                break;
+        }
+
+    }
+
+    private void deleteRecord() {
+        new AsyncTask<Void, Void, RecordInfo>(){
+            @Override
+            protected RecordInfo doInBackground(Void... voids) {
+                recordDB.getRecordInfoDAO().delete(recordInfo);
+                return null;
+            }
+        }.execute();
 
     }
 
     private void finishActivity(){
-
         Intent output = new Intent();
-//        output.putExtra("test", "Test");
         setResult(RESULT_OK, output);
         finish();
     }
 
-    private void insertRecord() {
+    private void updateRecord() {
         new AsyncTask<Void, Void, RecordInfo>(){
             @Override
             protected RecordInfo doInBackground(Void... voids) {
@@ -72,14 +98,8 @@ public class UpdateRecordActivity extends AppCompatActivity implements View.OnCl
     public String getType(){
         RadioGroup radioBtnGroup = findViewById(R.id.radio_Group);
         int selectedId = radioBtnGroup.getCheckedRadioButtonId();
-
-        String TYPE = "";
-
-        if (selectedId == R.id.income_RBtn) TYPE = "income";
-        else if (selectedId == R.id.outcome_RBtn) TYPE = "expense";
-
-        System.out.println(TYPE);
-
-        return TYPE;
+        if (selectedId == R.id.income_RBtn) return  "income";
+        else if (selectedId == R.id.outcome_RBtn) return  "expense";
+        else return null;
     }
 }
