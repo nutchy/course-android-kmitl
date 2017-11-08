@@ -1,6 +1,7 @@
 package lab09.kmitl.chayanon58070021.moneyflow;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,14 @@ public class RecordInfoAdapter extends RecyclerView.Adapter<RecordInfoAdapter.Ho
         symbol.setText(String.valueOf(recordInfoList.get(position).getType()));
         detail_item.setText(String.valueOf(recordInfoList.get(position).getDetail()));
         amount_item.setText(String.valueOf(recordInfoList.get(position).getAmount()));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, UpdateRecordActivity.class);
+                context.startActivity(intent);
+            }
+        });
 
     }
 
