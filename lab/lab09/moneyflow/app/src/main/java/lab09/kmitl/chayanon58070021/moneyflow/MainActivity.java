@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-
+    public final int RESULT_ACTIVITY = 999;
     private RecordDB recordDB;
     private Intent intent;
     TextView total;
@@ -42,20 +42,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RecyclerView recyclerView = findViewById(R.id.rc_record_item);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(recordInfoAdapter);
-
-        new AsyncTask<Void, Void, RecordInfo>() {
-
-            @Override
-            protected RecordInfo doInBackground(Void... voids) {
-                RecordInfo recordInfo = new RecordInfo();
-                recordInfo.setType("outcome");
-                recordInfo.setAmount(10000);
-                recordInfo.setDetail("Food");
-                recordDB.getRecordInfoDAO().insert(recordInfo);
-
-                return null;
-            }
-        }.execute();
 
         loadList();
     }
@@ -83,13 +69,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 total.setText(totalIncome+"");
             }
         }.execute();
-
     }
 
     @Override
     public void onClick(View view) {
-        startActivity(intent);
+        startActivityForResult(intent, RESULT_ACTIVITY);
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_ACTIVITY && resultCode == RESULT_OK){
+            loadList();
+        }
+    }
 }

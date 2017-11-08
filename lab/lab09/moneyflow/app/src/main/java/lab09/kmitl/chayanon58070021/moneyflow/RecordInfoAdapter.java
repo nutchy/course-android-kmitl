@@ -19,6 +19,7 @@ public class RecordInfoAdapter extends RecyclerView.Adapter<RecordInfoAdapter.Ho
     private Context context;
     private List<RecordInfo> recordInfoList;
 
+
     public Context getContext() {
         return context;
     }
@@ -61,7 +62,6 @@ public class RecordInfoAdapter extends RecyclerView.Adapter<RecordInfoAdapter.Ho
         if (recordInfoList == null) {
             recordInfoList = new ArrayList<>();
         }
-        System.out.println("size : "+recordInfoList.size());
         return recordInfoList.size();
     }
 
