@@ -54,11 +54,10 @@ public class UpdateRecordActivity extends AppCompatActivity implements View.OnCl
         new AsyncTask<Void, Void, RecordInfo>(){
             @Override
             protected RecordInfo doInBackground(Void... voids) {
-                RecordInfo recordInfo = new RecordInfo();
                 recordInfo.setDetail(desc.getText()+"");
                 recordInfo.setAmount(Integer.parseInt(amount.getText()+""));
                 recordInfo.setType(getType());
-                recordDB.getRecordInfoDAO().insert(recordInfo);
+                recordDB.getRecordInfoDAO().update(recordInfo);
                 return null;
             }
 
@@ -71,7 +70,7 @@ public class UpdateRecordActivity extends AppCompatActivity implements View.OnCl
     }
 
     public String getType(){
-        RadioGroup radioBtnGroup = findViewById(R.id.radioGroup);
+        RadioGroup radioBtnGroup = findViewById(R.id.radio_Group);
         int selectedId = radioBtnGroup.getCheckedRadioButtonId();
 
         String TYPE = "";
