@@ -15,9 +15,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, RecordInfoAdapter.RecordInfoAdapterListener {
 
     public final int RESULT_ACTIVITY = 999;
+    public final int RESULT_UPDATE = 888;
     private RecordDB recordDB;
     private Intent intent;
     TextView total;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         recordInfoAdapter = new RecordInfoAdapter();
         recordInfoAdapter.setContext(this);
+        recordInfoAdapter.setListener(this);
         RecyclerView recyclerView = findViewById(R.id.rc_record_item);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(recordInfoAdapter);
@@ -82,5 +84,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (requestCode == RESULT_ACTIVITY && resultCode == RESULT_OK){
             loadList();
         }
+    }
+
+    @Override
+    public void onClickRecordInfoItem(RecordInfo recordInfo) {
+        Intent intent = new Intent(this, UpdateRecordActivity.class);
+        intent.putExtra("RecordInfoParcel", recordInfo);
+        startActivityForResult(intent, RESULT_ACTIVITY);
+
     }
 }

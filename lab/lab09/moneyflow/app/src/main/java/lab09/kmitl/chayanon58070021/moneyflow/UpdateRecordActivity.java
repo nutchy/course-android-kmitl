@@ -14,6 +14,7 @@ public class UpdateRecordActivity extends AppCompatActivity implements View.OnCl
 
     private EditText desc, amount;
     private RecordDB recordDB;
+    private RecordInfo recordInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,8 @@ public class UpdateRecordActivity extends AppCompatActivity implements View.OnCl
         Button saveBtn = findViewById(R.id.save_Btn);
         saveBtn.setOnClickListener(this);
 
+        recordInfo = getIntent().getParcelableExtra("RecordInfoParcel");
+        System.out.println(recordInfo.getDetail());
         recordDB = Room.databaseBuilder(this, RecordDB.class, "RECORD").build();
 
         desc = findViewById(R.id.update_desc_et);

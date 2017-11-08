@@ -17,6 +17,16 @@ import java.util.List;
 
 public class RecordInfoAdapter extends RecyclerView.Adapter<RecordInfoAdapter.Holder> {
 
+    public interface RecordInfoAdapterListener {
+        void onClickRecordInfoItem(RecordInfo recordInfo);
+    }
+
+    private RecordInfoAdapterListener listener;
+
+    public void setListener(RecordInfoAdapterListener listener) {
+        this.listener = listener;
+    }
+
     private Context context;
     private List<RecordInfo> recordInfoList;
 
@@ -47,7 +57,7 @@ public class RecordInfoAdapter extends RecyclerView.Adapter<RecordInfoAdapter.Ho
     }
 
     @Override
-    public void onBindViewHolder(Holder holder, int position) {
+    public void onBindViewHolder(Holder holder, final int position) {
         TextView symbol = holder.symbol;
         TextView detail_item = holder.detail_item;
         TextView amount_item = holder.amount_item;
@@ -59,8 +69,7 @@ public class RecordInfoAdapter extends RecyclerView.Adapter<RecordInfoAdapter.Ho
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, UpdateRecordActivity.class);
-                context.startActivity(intent);
+                listener.onClickRecordInfoItem(recordInfoList.get(position));
             }
         });
 
