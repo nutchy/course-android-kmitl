@@ -30,6 +30,9 @@ public class UpdateRecordActivity extends AppCompatActivity implements View.OnCl
         desc = findViewById(R.id.update_desc_et);
         amount = findViewById(R.id.update_amount_et);
 
+        desc.setText(recordInfo.getDetail());
+        amount.setText(String.valueOf((int) recordInfo.getAmount()));
+
     }
 
     @Override
