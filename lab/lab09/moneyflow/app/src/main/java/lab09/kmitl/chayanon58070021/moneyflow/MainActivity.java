@@ -2,6 +2,7 @@ package lab09.kmitl.chayanon58070021.moneyflow;
 
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,29 +49,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         loadList();
     }
 
-    private void loadList(){
+    private void loadList() {
 
         new AsyncTask<Void, Void, List<RecordInfo>>() {
             @Override
             protected List<RecordInfo> doInBackground(Void... voids) {
                 List<RecordInfo> result = recordDB.getRecordInfoDAO().showAll();
-//                List<RecordInfo> result = recordDB.getRecordInfoDAO().queryByType("outcome");
                 return result;
             }
 
             @Override
             protected void onPostExecute(List<RecordInfo> recordInfos) {
                 recordInfoAdapter.setRecordInfoList(recordInfos);
-                System.out.println("size :"+recordInfos.size());
+                System.out.println("size :" + recordInfos.size());
                 recordInfoAdapter.notifyDataSetChanged();
 
-                int totalBalance = 0;
-                for(RecordInfo r : recordInfos){
-                    if (r.getType().equals("income"))
-                    totalBalance += r.getAmount();
-                    else totalBalance -= r.getAmount();
+                float totalBalance = 0;
+                float totalIncome = 0;
+                for (RecordInfo r : recordInfos) {
+
+                    if (r.getType().equals("income")) {
+                        totalIncome += r.getAmount();
+                        totalBalance += r.getAmount();
+                    } else totalBalance -= r.getAmount();
                 }
-                total.setText(totalBalance+"");
+                float ratio;
+                try {
+                    ratio = totalBalance / totalIncome;
+                } catch (ArithmeticException e) {
+                    ratio = 0;
+                }
+                System.out.println(ratio);
+                if (ratio > 0.5) {
+                    total.setTextColor(Color.GREEN);
+                    System.out.println(ratio);
+                } else if (ratio >= 0.25) {
+                    total.setTextColor(Color.YELLOW);
+                    System.out.println("25-50");
+                } else {
+                    total.setTextColor(Color.RED);
+                    System.out.println("< 25");
+                }
+                total.setText(totalBalance + "");
             }
         }.execute();
     }
@@ -83,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_ACTIVITY && resultCode == RESULT_OK){
+        if (requestCode == RESULT_ACTIVITY && resultCode == RESULT_OK) {
             loadList();
         }
     }
