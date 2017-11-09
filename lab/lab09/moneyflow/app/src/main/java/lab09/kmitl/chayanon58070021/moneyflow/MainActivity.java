@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,7 +19,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, RecordInfoAdapter.RecordInfoAdapterListener {
+public class MainActivity extends AppCompatActivity implements RecordInfoAdapter.RecordInfoAdapterListener {
 
     public final int RESULT_ACTIVITY = 999;
     public final int RESULT_UPDATE = 888;
@@ -29,23 +32,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         recordDB = Room.databaseBuilder(this, RecordDB.class, "RECORD").build();
         intent = new Intent(this, AddRecordActivity.class);
-
-        Button addBtn = findViewById(R.id.addRecordBtn);
-        addBtn.setOnClickListener(this);
-
         total = findViewById(R.id.totalIncomeTv);
-
-
         recordInfoAdapter = new RecordInfoAdapter();
         recordInfoAdapter.setContext(this);
         recordInfoAdapter.setListener(this);
         RecyclerView recyclerView = findViewById(R.id.rc_record_item);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(recordInfoAdapter);
-
         loadList();
     }
 
@@ -95,10 +90,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }.execute();
     }
 
-    @Override
-    public void onClick(View view) {
-        startActivityForResult(intent, RESULT_ACTIVITY);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -114,5 +105,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra("RecordInfoParcel", recordInfo);
         startActivityForResult(intent, RESULT_ACTIVITY);
 
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.add_button, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_btn_action:
+                startActivityForResult(intent, RESULT_ACTIVITY);
+                return true;
+            default:
+            return super.onOptionsItemSelected(item);
+        }
     }
 }

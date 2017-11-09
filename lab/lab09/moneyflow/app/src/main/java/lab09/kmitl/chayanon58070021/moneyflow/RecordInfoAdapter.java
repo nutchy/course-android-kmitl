@@ -62,13 +62,17 @@ public class RecordInfoAdapter extends RecyclerView.Adapter<RecordInfoAdapter.Ho
         TextView symbol = holder.symbol;
         TextView detail_item = holder.detail_item;
         TextView amount_item = holder.amount_item;
+        String symbol_str = recordInfoList.get(position).getType();
+        if (symbol_str.equals("income"))
+            symbol.setText("+");
+        else  symbol.setText("-");
 
-        symbol.setText(String.valueOf(recordInfoList.get(position).getType()));
+
         detail_item.setText(String.valueOf(recordInfoList.get(position).getDetail()));
         amount_item.setText(String.valueOf(recordInfoList.get(position).getAmount()));
-        if (position % 2 == 1) {
-            holder.itemView.setBackgroundColor(Color.rgb(230, 230, 230));
-        }
+//        if (position % 2 == 1) {
+//            holder.itemView.setBackgroundColor(Color.rgb(230, 230, 230));
+//        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
